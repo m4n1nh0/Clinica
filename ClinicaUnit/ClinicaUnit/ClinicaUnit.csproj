@@ -115,8 +115,12 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Models\Consulta.cs" />
     <Compile Include="Models\Convenio.cs" />
     <Compile Include="Models\Exame.cs" />
+    <Compile Include="Models\Medico.cs" />
+    <Compile Include="Models\Paciente.cs" />
+    <Compile Include="Models\Req_exame.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup />
