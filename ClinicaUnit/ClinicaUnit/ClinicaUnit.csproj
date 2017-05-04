@@ -94,8 +94,8 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="BD\Clinica.mdf" />
-    <Content Include="BD\Clinica_log.ldf">
+    <Content Include="App_Data\Clinica.mdf" />
+    <Content Include="App_Data\Clinica_log.ldf">
       <DependentUpon>Clinica.mdf</DependentUpon>
     </Content>
     <Content Include="packages.config" />
@@ -116,6 +116,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Models\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
