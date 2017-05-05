@@ -20,6 +20,8 @@ namespace ClinicaUnit.Models
         private Decimal Valor;
         private Char Tipo;
         private String Convenio;
+        private String NomePaci;
+        private String NomeConv;
 
         public int id_paciente
         {
@@ -98,6 +100,30 @@ namespace ClinicaUnit.Models
                 Convenio = value;
             }
         }
+        public string nomePaci
+        {
+            get
+            {
+                return NomePaci;
+            }
 
+            set
+            {
+                NomePaci = value;
+            }
+        }
+
+        public string nomeConv
+        {
+            get
+            {
+                return NomeConv;
+            }
+
+            set
+            {
+                NomeConv = value;
+            }
+        }
     }
 }

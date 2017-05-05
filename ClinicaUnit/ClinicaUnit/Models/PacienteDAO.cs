@@ -14,7 +14,7 @@ namespace ClinicaUnit.Models
             Paciente paciente = new Paciente();
         }
         #endregion
-        #region Menbros da Interface IDataAccessObject<Medico>
+        #region Menbros da Interface IDataAccessObject<Paciente>
         public Paciente ObterPaciente(Int32 id_paciente)
         {
             try
