@@ -141,7 +141,7 @@ namespace ClinicaUnit.Models
                 this.AbrirConexao();
                 cmd = new SqlCommand(@"UPDATE [EXAME] 
                                               SET   [Nome] = @nome,
-                                                    [OBS] = @obs,
+                                                    [OBS] = @obs
                                               WHERE [ID] = @id_exame", tran.Connection, tran);
                 cmd.Parameters.AddWithValue("@id_exame", exame.Id1);
                 cmd.Parameters.AddWithValue("@nome", exame.Nome1);

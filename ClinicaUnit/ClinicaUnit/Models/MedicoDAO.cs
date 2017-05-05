@@ -189,18 +189,25 @@ namespace ClinicaUnit.Models
 
         }
 
-        public void UPDATE(Exame exame)
+        public void UPDATE(Medico medico)
         {
             try
             {
                 this.AbrirConexao();
-                cmd = new SqlCommand(@"UPDATE [EXAME] 
-                                              SET   [Nome] = @nome,
-                                                    [OBS] = @obs,
-                                              WHERE [ID] = @id_exame", tran.Connection, tran);
-                cmd.Parameters.AddWithValue("@id_exame", exame.Id1);
-                cmd.Parameters.AddWithValue("@nome", exame.Nome1);
-                cmd.Parameters.AddWithValue("@obs", exame.Obs1);
+                cmd = new SqlCommand(@"UPDATE [MEDICO] 
+                                              SET   [telefone] = @telefone,
+                                                    [Cidade] = @cidade,
+                                                    [ENDERECO] = @endereco,
+                                                    [TURNO] = @turno,
+                                                    [UF] = @uf
+                                              WHERE [ID] = @id_medico", tran.Connection, tran);
+
+                cmd.Parameters.AddWithValue("@id_medico", medico.id);
+                cmd.Parameters.AddWithValue("@telefone", medico.telefone);
+                cmd.Parameters.AddWithValue("@cidade", medico.cidade);
+                cmd.Parameters.AddWithValue("@endereco", medico.endereco);
+                cmd.Parameters.AddWithValue("@turno", medico.turno);
+                cmd.Parameters.AddWithValue("@uf", medico.uf);
                 cmd.Transaction = tran;
                 cmd.ExecuteNonQuery();
                 tran.Commit();
@@ -208,7 +215,7 @@ namespace ClinicaUnit.Models
             catch (Exception e)
             {
                 tran.Rollback();
-                throw new Exception("Erro ao Atualizar Exame: " + e.Message);
+                throw new Exception("Erro ao Atualizar Medico: " + e.Message);
             }
             finally
             {

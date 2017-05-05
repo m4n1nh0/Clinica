@@ -210,9 +210,9 @@ namespace ClinicaUnit.Models
                                               SET   [TURNO] = @turno,
                                                     [SITUACAO] = @situacao,
                                                     [MEDICAMENTOS] = @medicamentos
-                                              WHERE [ID_PACIENTE] = @id_paciente
-                                                    [ID_CONVENIO] = @id_convenio
-                                                    [ID_MEDICO] = @id_medico
+                                              WHERE [ID_PACIENTE] = @id_paciente and
+                                                    [ID_CONVENIO] = @id_convenio and
+                                                    [ID_MEDICO] = @id_medico and
                                                     [DTCONSULTA] = @dtconsulta", tran.Connection, tran);
                 cmd.Parameters.AddWithValue("@id_paciente", consulta.id_paciente);
                 cmd.Parameters.AddWithValue("@id_convenio", consulta.id_convenio);
