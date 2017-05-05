@@ -18,5 +18,144 @@ namespace ClinicaUnit.Models
     */
     public class Paciente
     {
+        private Int32 Id;
+        private String Nome;
+        private String CPF;
+        private String Telefone;
+        private String Endereco;
+        private String Cidade;
+        private Char UF;
+        private String Plano;
+        private Char Sexo;
+        private DateTime Dtnaci;
+
+        public int id
+        {
+            get
+            {
+                return Id;
+            }
+
+            set
+            {
+                Id = value;
+            }
+        }
+
+        public string nome
+        {
+            get
+            {
+                return Nome;
+            }
+
+            set
+            {
+                Nome = value;
+            }
+        }
+
+        public string cpf
+        {
+            get
+            {
+                return CPF;
+            }
+
+            set
+            {
+                CPF = value;
+            }
+        }
+
+        public string telefone
+        {
+            get
+            {
+                return Telefone;
+            }
+
+            set
+            {
+                Telefone = value;
+            }
+        }
+
+        public string endereco
+        {
+            get
+            {
+                return Endereco;
+            }
+
+            set
+            {
+                Endereco = value;
+            }
+        }
+
+        public string cidade
+        {
+            get
+            {
+                return Cidade;
+            }
+
+            set
+            {
+                Cidade = value;
+            }
+        }
+
+        public char uf
+        {
+            get
+            {
+                return UF;
+            }
+
+            set
+            {
+                UF = value;
+            }
+        }
+
+        public string plano
+        {
+            get
+            {
+                return Plano;
+            }
+
+            set
+            {
+                Plano = value;
+            }
+        }
+
+        public char sexo
+        {
+            get
+            {
+                return Sexo;
+            }
+
+            set
+            {
+                Sexo = value;
+            }
+        }
+        public DateTime dtnaci
+        {
+            get
+            {
+                return Dtnaci;
+            }
+
+            set
+            {
+                Dtnaci = value;
+            }
+        }
     }
 }
