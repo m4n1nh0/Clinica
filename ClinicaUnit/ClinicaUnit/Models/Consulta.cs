@@ -22,6 +22,9 @@ namespace ClinicaUnit.Models
         private Char Turno;
         private Char Situacao;
         private String Medicamentos;
+        private String NomePaci;
+        private String NomeConv;
+        private String NomeMed;
 
         public int id_paciente
         {
@@ -110,6 +113,45 @@ namespace ClinicaUnit.Models
             set
             {
                 Medicamentos = value;
+            }
+        }
+
+        public string nomePaci
+        {
+            get
+            {
+                return NomePaci;
+            }
+
+            set
+            {
+                NomePaci = value;
+            }
+        }
+
+        public string nomeConv
+        {
+            get
+            {
+                return NomeConv;
+            }
+
+            set
+            {
+                NomeConv = value;
+            }
+        }
+
+        public string nomeMed
+        {
+            get
+            {
+                return NomeMed;
+            }
+
+            set
+            {
+                NomeMed = value;
             }
         }
     }
