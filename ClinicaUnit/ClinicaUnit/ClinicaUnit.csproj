@@ -126,6 +126,7 @@
     <Compile Include="Models\Medico.cs" />
     <Compile Include="Models\MedicoDAO.cs" />
     <Compile Include="Models\Paciente.cs" />
+    <Compile Include="Models\PacienteDAO.cs" />
     <Compile Include="Models\Req_exame.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
