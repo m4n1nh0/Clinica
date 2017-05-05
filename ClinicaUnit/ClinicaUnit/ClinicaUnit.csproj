@@ -119,6 +119,7 @@
     <Compile Include="Models\Consulta.cs" />
     <Compile Include="Models\ConsultaDAO.cs" />
     <Compile Include="Models\Convenio.cs" />
+    <Compile Include="Models\ConvenioDAO.cs" />
     <Compile Include="Models\DBConect.cs" />
     <Compile Include="Models\Exame.cs" />
     <Compile Include="Models\Medico.cs" />
