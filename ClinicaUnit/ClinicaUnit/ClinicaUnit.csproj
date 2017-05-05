@@ -94,6 +94,7 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="App_Data\Banco.sql" />
     <Content Include="App_Data\Clinica.mdf" />
     <Content Include="App_Data\Clinica_log.ldf">
       <DependentUpon>Clinica.mdf</DependentUpon>

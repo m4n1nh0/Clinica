@@ -35,8 +35,12 @@ namespace ClinicaUnit.Models
                     consulta.id_paciente = Convert.ToInt32(dr["id_paciente"]);
                     consulta.id_convenio = Convert.ToInt32(dr["id_convenio"]);
                     consulta.id_medico = Convert.ToInt32(dr["id_medico"]);
-
+                    consulta.dtconsulta = Convert.ToDateTime(dr["DTCONSULTA"]);
+                    consulta.turno = Convert.ToChar(dr["TURNO"]);
+                    consulta.situacao = Convert.ToChar(dr["SITUACAO"]);
+                    consulta.medicamentos = Convert.ToString(dr["MEDICAMENTOS"]);               
                 }
+                return consulta;
             }
             catch (Exception e)
             {
@@ -44,10 +48,25 @@ namespace ClinicaUnit.Models
             }
             finally
             {
-
+                this.FecharConexao();
             }
         }
+        public List<Consulta> ListarConsulta(DateTime Data, String nomePaci, String nomeConv, String nomeMed)
+        {
+            try
+            {
 
+                return List;
+            }
+            catch (Exception e)
+            {
+                throw new Exception("Erro ao listar Consultas: " + e.Message);
+            }
+            finally
+            {
+                this.FecharConexao();
+            }            
+        }
         #endregion
 
     }

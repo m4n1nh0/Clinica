@@ -1,0 +1,103 @@
+CREATE TABLE [dbo].[CONSULTA] (
+    [id_paciente]  INT           NOT NULL,
+    [id_convenio]  INT           NOT NULL,
+    [id_medico]    INT           NOT NULL,
+    [DTCONSULTA]   DATE          NOT NULL,
+    [TURNO]        CHAR (1)      NOT NULL,
+    [SITUACAO]     CHAR (1)      NOT NULL,
+    [MEDICAMENTOS] VARCHAR (300) NOT NULL,
+    PRIMARY KEY CLUSTERED ([id_paciente] ASC, [id_convenio] ASC, [id_medico] ASC, [DTCONSULTA] ASC)
+);
+
+
+GO
+CREATE NONCLUSTERED INDEX [IX_CONSULTA_Column]
+    ON [dbo].[CONSULTA]([DTCONSULTA] ASC);
+
+CREATE TABLE [dbo].[CONVENIO] (
+    [Id]       INT          IDENTITY (1, 1) NOT NULL,
+    [NOME]     VARCHAR (50) NOT NULL,
+    [SIGLA]    CHAR (10)    NOT NULL,
+    [TELEFONE] CHAR (11)    NOT NULL,
+    PRIMARY KEY CLUSTERED ([Id] ASC)
+);
+
+
+GO
+CREATE NONCLUSTERED INDEX [IX_Convenio_Column]
+    ON [dbo].[CONVENIO]([NOME] ASC);
+
+CREATE TABLE [dbo].[EXAME] (
+    [Id]   INT           IDENTITY (1, 1) NOT NULL,
+    [NOME] VARCHAR (50)  NOT NULL,
+    [OBS]  VARCHAR (500) NULL,
+    PRIMARY KEY CLUSTERED ([Id] ASC)
+);
+
+CREATE TABLE [dbo].[MEDICO] (
+    [Id]       INT          IDENTITY (1, 1) NOT NULL,
+    [NOME]     VARCHAR (50) NOT NULL,
+    [CPF]      VARCHAR (11) NOT NULL,
+    [TELEFONE] VARCHAR (11) NULL,
+    [CRM]      CHAR (10)    NOT NULL,
+    [ENDERECO] VARCHAR (50) NULL,
+    [CIDADE]   VARCHAR (50) NULL,
+    [UF]       CHAR (2)     NULL,
+    [TURNO]    CHAR (1)     NOT NULL,
+    PRIMARY KEY CLUSTERED ([Id] ASC)
+);
+
+
+GO
+CREATE NONCLUSTERED INDEX [IX_MEDICO_Column]
+    ON [dbo].[MEDICO]([NOME] ASC);
+
+
+GO
+CREATE NONCLUSTERED INDEX [IX_MEDICO_Column_1]
+    ON [dbo].[MEDICO]([ENDERECO] ASC, [CIDADE] ASC);
+
+CREATE TABLE [dbo].[PACIENTE] (
+    [Id]       INT          IDENTITY (1, 1) NOT NULL,
+    [NOME]     VARCHAR (50) NOT NULL,
+    [CPF]      VARCHAR (11) NOT NULL,
+    [TELEFONE] VARCHAR (11) NOT NULL,
+    [ENDERECO] VARCHAR (50) NOT NULL,
+    [CIDADE]   VARCHAR (50) NOT NULL,
+    [UF]       CHAR (2)     NOT NULL,
+    [PLANO]    VARCHAR (20) NOT NULL,
+    [SEXO]     CHAR (1)     NOT NULL,
+    [DTNACI]   DATE         NOT NULL,
+    PRIMARY KEY CLUSTERED ([Id] ASC)
+);
+
+
+GO
+CREATE NONCLUSTERED INDEX [IX_PACIENTE_Column]
+    ON [dbo].[PACIENTE]([NOME] ASC);
+
+
+GO
+CREATE NONCLUSTERED INDEX [IX_PACIENTE_Column_1]
+    ON [dbo].[PACIENTE]([ENDERECO] ASC, [CIDADE] ASC);
+
+
+GO
+CREATE NONCLUSTERED INDEX [IX_PACIENTE_Column_2]
+    ON [dbo].[PACIENTE]([DTNACI] ASC);
+
+
+GO
+CREATE NONCLUSTERED INDEX [IX_PACIENTE_Column_3]
+    ON [dbo].[PACIENTE]([PLANO] ASC);
+
+CREATE TABLE [dbo].[REQ_EXAME] (
+    [id_paciente] INT            NOT NULL,
+    [id_exame]    INT            NOT NULL,
+    [DTEXAME]     DATE           NOT NULL,
+    [VALOR]       DECIMAL (9, 2) NULL,
+    [TIPO]        CHAR (1)       NOT NULL,
+    [CONVENIO]    VARCHAR (50)   NULL,
+    PRIMARY KEY CLUSTERED ([id_paciente] ASC, [id_exame] ASC, [DTEXAME] ASC)
+);
+
