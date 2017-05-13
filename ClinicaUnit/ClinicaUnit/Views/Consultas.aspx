@@ -11,27 +11,27 @@
                     <asp:Panel runat="server" CssClass="col-sm-4">
                     <asp:DropDownList ID="ESTADO" CssClass="form-control" runat="server">
 
-                    </asp:DropDownList>                <
+                    </asp:DropDownList>                
               </asp:Panel>  
               </asp:Panel>
             </asp:Panel>
             <asp:Panel CssClass="form-group" runat="server">
-                <label for="SERGE" class="col-sm-2 control-label">Paciente</label>
+                <label for="SERGE" class="col-sm-2 control-label">Convênio</label>
                 <asp:Panel runat="server" CssClass="col-sm-6">
                     <asp:Panel runat="server" CssClass="col-sm-4">
                     <asp:DropDownList ID="DropDownList1" CssClass="form-control" runat="server">
 
-                    </asp:DropDownList>                <
+                    </asp:DropDownList>                
               </asp:Panel>  
               </asp:Panel>
             </asp:Panel>
             <asp:Panel CssClass="form-group" runat="server">
-                <label for="PACIENTE" class="col-sm-2 control-label">Paciente</label>
+                <label for="PACIENTE" class="col-sm-2 control-label">Médico</label>
                 <asp:Panel runat="server" CssClass="col-sm-6">
                     <asp:Panel runat="server" CssClass="col-sm-4">
                     <asp:DropDownList ID="DropDownList2" CssClass="form-control" runat="server">
 
-                    </asp:DropDownList>                <
+                    </asp:DropDownList>                
               </asp:Panel>  
               </asp:Panel>
             </asp:Panel>
