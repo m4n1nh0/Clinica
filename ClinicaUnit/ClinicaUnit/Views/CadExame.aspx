@@ -5,7 +5,7 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <asp:FormView ID="Cadastro" DefaultMode="Insert" Width="100%" runat="server">
         <InsertItemTemplate>
-            <h2 class="form-signin-heading">Cadastro de Consula</h2>
+            <h2 class="form-signin-heading">Cadastro de Exame</h2>
             <asp:Panel CssClass="form-group" runat="server">
                 <label for="NOME" class="col-sm-2 control-label">Nome</label>
                 <asp:Panel runat="server" CssClass="col-sm-4">
