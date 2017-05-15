@@ -69,15 +69,23 @@
             <asp:Panel CssClass="form-group" runat="server">
                 <label for="PACIENTE" class="col-sm-2 control-label">Paciente</label>
                 <asp:Panel runat="server" CssClass="col-sm-8">
-                    <asp:DropDownList ID="PACIENTE" CssClass="form-control" runat="server">
-
-                    </asp:DropDownList>                
-              </asp:Panel>
+                    <asp:DropDownList ID="PACIENTE" CssClass="form-control" runat="server" SelectedValue='<%# Bind("Id_paciente") %>' DataSourceID="ObjectDataSourceSelectPaciente" DataTextField="nome" DataValueField="id">
+                        <asp:ListItem Value="-1">Selecionar</asp:ListItem>
+                    </asp:DropDownList>
+                    <asp:ObjectDataSource runat="server" ID="ObjectDataSourceSelectPaciente" SelectMethod="ListarPaciente" TypeName="ClinicaUnit.Models.PacienteDAO">
+                        <SelectParameters>
+                            <asp:Parameter Name="nome" Type="String"></asp:Parameter>
+                            <asp:Parameter Name="cidade" Type="String"></asp:Parameter>
+                            <asp:Parameter Name="endereco" Type="String"></asp:Parameter>
+                            <asp:Parameter Name="uf" Type="String"></asp:Parameter>
+                        </SelectParameters>
+                    </asp:ObjectDataSource>
+                </asp:Panel>
             </asp:Panel>
             <asp:Panel CssClass="form-group" runat="server">
                 <label for="CONVENIO" class="col-sm-2 control-label">Convênio</label>
                     <asp:Panel runat="server" CssClass="col-sm-8">
-                        <asp:DropDownList ID="CONVENIO" CssClass="form-control" runat="server" SelectedValue='<%# Bind("id") %>' DataSourceID="ObjectDataSourceSelConvenio" DataTextField="nome" DataValueField="id">
+                        <asp:DropDownList ID="CONVENIO" CssClass="form-control" runat="server" SelectedValue='<%# Bind("Id_convenio") %>' DataSourceID="ObjectDataSourceSelConvenio" DataTextField="nome" DataValueField="id">
                             <asp:ListItem Value="-1">Selecionar</asp:ListItem>
                         </asp:DropDownList>
                         <asp:ObjectDataSource runat="server" ID="ObjectDataSourceSelConvenio" SelectMethod="ListarConveio" TypeName="ClinicaUnit.Models.ConvenioDAO">
@@ -91,10 +99,18 @@
             <asp:Panel CssClass="form-group" runat="server">
                 <label for="MEDICO" class="col-sm-2 control-label">Médico</label>
                 <asp:Panel runat="server" CssClass="col-sm-8">
-                    <asp:DropDownList ID="MEDICO" CssClass="form-control" runat="server">
-
-                    </asp:DropDownList>                
-              </asp:Panel>
+                    <asp:DropDownList ID="MEDICO" CssClass="form-control" runat="server" SelectedValue='<%# Bind("Id_medico") %>' DataSourceID="ObjectDataSourceSelectMedico" DataTextField="nome" DataValueField="id">
+                        <asp:ListItem Value="-1">Selecionar</asp:ListItem>
+                    </asp:DropDownList>
+                    <asp:ObjectDataSource runat="server" ID="ObjectDataSourceSelectMedico" SelectMethod="ListarMedico" TypeName="ClinicaUnit.Models.MedicoDAO">
+                        <SelectParameters>
+                            <asp:Parameter Name="nome" Type="String"></asp:Parameter>
+                            <asp:Parameter Name="cidade" Type="String"></asp:Parameter>
+                            <asp:Parameter Name="endereco" Type="String"></asp:Parameter>
+                            <asp:Parameter Name="uf" Type="String"></asp:Parameter>
+                        </SelectParameters>
+                    </asp:ObjectDataSource>
+                </asp:Panel>
             </asp:Panel>
             <asp:Panel CssClass="form-group" runat="server">
                 <label for="DATA" class="col-sm-2 control-label">Data</label>

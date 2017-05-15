@@ -57,15 +57,30 @@
             <asp:Panel CssClass="form-group" runat="server">
                 <label for="PACIENTE" class="col-sm-2 control-label">Paciente</label>
                 <asp:Panel runat="server" CssClass="col-sm-8">
-                    <asp:DropDownList ID="Paciente" CssClass="form-control" runat="server">
+                    <asp:DropDownList ID="PACIENTE" CssClass="form-control" runat="server" SelectedValue='<%# Bind("Id_paciente") %>' DataSourceID="ObjectDataSourceSelectPaciente" DataTextField="nome" DataValueField="id">
+                        <asp:ListItem Value="-1">Selecionar</asp:ListItem>
                     </asp:DropDownList>
+                    <asp:ObjectDataSource runat="server" ID="ObjectDataSourceSelectPaciente" SelectMethod="ListarPaciente" TypeName="ClinicaUnit.Models.PacienteDAO">
+                        <SelectParameters>
+                            <asp:Parameter Name="nome" Type="String"></asp:Parameter>
+                            <asp:Parameter Name="cidade" Type="String"></asp:Parameter>
+                            <asp:Parameter Name="endereco" Type="String"></asp:Parameter>
+                            <asp:Parameter Name="uf" Type="String"></asp:Parameter>
+                        </SelectParameters>
+                    </asp:ObjectDataSource>
                 </asp:Panel>
             </asp:Panel>
             <asp:Panel CssClass="form-group" runat="server">
                 <label for="EXAME" class="col-sm-2 control-label">Exame</label>
                 <asp:Panel runat="server" CssClass="col-sm-8">
-                    <asp:DropDownList ID="EXAME" CssClass="form-control" runat="server">
+                    <asp:DropDownList ID="EXAME" CssClass="form-control" runat="server" SelectedValue='<%# Bind("Id_exame") %>' DataSourceID="ObjectDataSourceSelectExame" DataTextField="Nome1" DataValueField="Id1">
+                        <asp:ListItem Value="-1">Selecionar</asp:ListItem>
                     </asp:DropDownList>
+                    <asp:ObjectDataSource runat="server" ID="ObjectDataSourceSelectExame" SelectMethod="ListarExame" TypeName="ClinicaUnit.Models.ExameDAO">
+                        <SelectParameters>
+                            <asp:Parameter Name="nome" Type="String"></asp:Parameter>
+                        </SelectParameters>
+                    </asp:ObjectDataSource>
                 </asp:Panel>
             </asp:Panel>
             <asp:Panel CssClass="form-group" runat="server">

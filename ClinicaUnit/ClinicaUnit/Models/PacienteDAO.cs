@@ -56,11 +56,10 @@ namespace ClinicaUnit.Models
             {
                 this.AbrirConexao();
                 string query = @"SELECT * FROM [PACIENTE]
-                                          WHERE (@nome is null or [Nome] = @nome
-                                                 @cidade is null or [CIDADE] = @cidade
-                                                 @endereco is null or [ENDERECO] = @endereco   
-                                                 @uf is null or [UF] = @uf
-                                                )";
+                                          WHERE (@nome is null or [Nome] = @nome) and
+                                                (@cidade is null or [CIDADE] = @cidade) and
+                                                (@endereco is null or [ENDERECO] = @endereco) and   
+                                                (@uf is null or [UF] = @uf)";
                 cmd = new SqlCommand(query, tran.Connection, tran);
                 if (String.IsNullOrEmpty(nome))
                 {
