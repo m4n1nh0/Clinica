@@ -3,27 +3,27 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
-    <asp:FormView ID="Cadastro" DataKeyNames="ID" DefaultMode="Edit" Width="100%" runat="server">
+    <asp:FormView ID="Cadastro" DataKeyNames="ID" DefaultMode="Edit" Width="100%" runat="server" DataSourceID="ObjectDataSourceCadMedico">
         <EditItemTemplate>
             <h2 class="form-signin-heading">Editar de Médico</h2>
             <asp:Panel CssClass="form-group" runat="server">
                 <label for="NOME" class="col-sm-2 control-label">Nome</label>
                 <asp:Panel runat="server" CssClass="col-sm-4">
-                    <asp:TextBox runat="server" ID="NOME" CssClass="form-control" MaxLength="50" TextMode="SingleLine" ReadOnly="true"></asp:TextBox>
+                    <asp:TextBox runat="server" ID="NOME" CssClass="form-control" MaxLength="50" TextMode="SingleLine" ReadOnly="true" Text='<%# Bind("nome") %>'></asp:TextBox>
                 </asp:Panel>
                 <label for="CIDADE" class="col-sm-2 control-label">Cidade</label>
                 <asp:Panel runat="server" CssClass="col-sm-4">
-                    <asp:TextBox runat="server" ID="CIDADE" CssClass="form-control" MaxLength="50"></asp:TextBox>
+                    <asp:TextBox runat="server" ID="CIDADE" CssClass="form-control" MaxLength="50" Text='<%# Bind("cidade") %>'></asp:TextBox>
                 </asp:Panel>
             </asp:Panel>
             <asp:Panel CssClass="form-group" runat="server">
                 <label for="ENDERECO" class="col-sm-2 control-label">Endereço</label>
                 <asp:Panel runat="server" CssClass="col-sm-4">
-                    <asp:TextBox runat="server" ID="ENDERECO" CssClass="form-control" MaxLength="50" TextMode="SingleLine"></asp:TextBox>
+                    <asp:TextBox runat="server" ID="ENDERECO" CssClass="form-control" MaxLength="50" TextMode="SingleLine" Text='<%# Bind("endereco") %>'></asp:TextBox>
                 </asp:Panel>
                 <label for="ESTADO" class="col-sm-2 control-label">Estado</label>
                 <asp:Panel runat="server" CssClass="col-sm-4">
-                    <asp:DropDownList ID="ESTADO" CssClass="form-control" runat="server">
+                    <asp:DropDownList ID="ESTADO" CssClass="form-control" runat="server" Text='<%# Bind("uf") %>'>
                         <asp:ListItem>AC</asp:ListItem>
                         <asp:ListItem>AL</asp:ListItem>
                         <asp:ListItem>AP</asp:ListItem>
@@ -58,14 +58,14 @@
             <asp:Panel CssClass="form-group" runat="server">
                 <label for="CELULAR" class="col-sm-2 control-label">Telefone</label>
                 <asp:Panel runat="server" CssClass="col-sm-4">
-                    <asp:TextBox runat="server" ID="CELULAR" CssClass="form-control" MaxLength="20" TextMode="Phone"></asp:TextBox>
+                    <asp:TextBox runat="server" ID="CELULAR" CssClass="form-control" MaxLength="20" TextMode="Phone" Text='<%# Bind("telefone") %>'></asp:TextBox>
                 </asp:Panel>
             </asp:Panel>
 
             <asp:Panel CssClass="form-group" runat="server">
                 <label for="ATENDTURNO" class="col-sm-3 control-label">Atendimento por turno:</label>
                 <asp:Panel runat="server" CssClass="col-sm-2">
-                    <asp:DropDownList ID="ATENDTURNO" CssClass="form-control" runat="server">
+                    <asp:DropDownList ID="ATENDTURNO" CssClass="form-control" runat="server" Text='<%# Bind("turno") %>'>
                         <asp:ListItem>Selecione</asp:ListItem>
                         <asp:ListItem>1</asp:ListItem>
                         <asp:ListItem>2</asp:ListItem>
@@ -85,21 +85,21 @@
             <asp:Panel CssClass="form-group" runat="server">
                 <label for="NOME" class="col-sm-2 control-label">Nome</label>
                 <asp:Panel runat="server" CssClass="col-sm-4">
-                    <asp:TextBox runat="server" ID="NOME" CssClass="form-control" MaxLength="50" TextMode="SingleLine"></asp:TextBox>
+                    <asp:TextBox runat="server" ID="NOME" CssClass="form-control" MaxLength="50" TextMode="SingleLine" Text='<%# Bind("nome") %>'></asp:TextBox>
                 </asp:Panel>
                 <label for="CIDADE" class="col-sm-2 control-label">Cidade</label>
                 <asp:Panel runat="server" CssClass="col-sm-4">
-                    <asp:TextBox runat="server" ID="CIDADE" CssClass="form-control" MaxLength="50"></asp:TextBox>
+                    <asp:TextBox runat="server" ID="CIDADE" CssClass="form-control" MaxLength="50" Text='<%# Bind("cidade") %>'></asp:TextBox>
                 </asp:Panel>
             </asp:Panel>
             <asp:Panel CssClass="form-group" runat="server">
                 <label for="ENDERECO" class="col-sm-2 control-label">Endereço</label>
                 <asp:Panel runat="server" CssClass="col-sm-4">
-                    <asp:TextBox runat="server" ID="ENDERECO" CssClass="form-control" MaxLength="50" TextMode="SingleLine"></asp:TextBox>
+                    <asp:TextBox runat="server" ID="ENDERECO" CssClass="form-control" MaxLength="50" TextMode="SingleLine" Text='<%# Bind("endereco") %>'></asp:TextBox>
                 </asp:Panel>
                 <label for="ESTADO" class="col-sm-2 control-label">Estado</label>
                 <asp:Panel runat="server" CssClass="col-sm-4">
-                    <asp:DropDownList ID="ESTADO" CssClass="form-control" runat="server">
+                    <asp:DropDownList ID="ESTADO" CssClass="form-control" runat="server" Text='<%# Bind("uf") %>'>
                         <asp:ListItem>AC</asp:ListItem>
                         <asp:ListItem>AL</asp:ListItem>
                         <asp:ListItem>AP</asp:ListItem>
@@ -134,27 +134,27 @@
             <asp:Panel CssClass="form-group" runat="server">
                 <label class="col-sm-2 control-label">CPF</label>
                 <asp:Panel runat="server" CssClass="col-sm-4">
-                    <asp:TextBox runat="server" ID="CPF" CssClass="form-control" MaxLength="18" TextMode="SingleLine"></asp:TextBox>
+                    <asp:TextBox runat="server" ID="CPF" CssClass="form-control" MaxLength="18" TextMode="SingleLine" Text='<%# Bind("cpf") %>'></asp:TextBox>
                 </asp:Panel>
             </asp:Panel>
 
             <asp:Panel CssClass="form-group" runat="server">
                 <label for="CELULAR" class="col-sm-2 control-label">Telefone</label>
                 <asp:Panel runat="server" CssClass="col-sm-4">
-                    <asp:TextBox runat="server" ID="CELULAR" CssClass="form-control" MaxLength="20" TextMode="Phone"></asp:TextBox>
+                    <asp:TextBox runat="server" ID="CELULAR" CssClass="form-control" MaxLength="20" TextMode="Phone" Text='<%# Bind("telefone") %>'></asp:TextBox>
                 </asp:Panel>
             </asp:Panel>
 
             <asp:Panel CssClass="form-group" runat="server">
                 <label for="CRM" class="col-sm-2 control-label">CRM</label>
                 <asp:Panel runat="server" CssClass="col-sm-4">
-                    <asp:TextBox runat="server" ID="CRM" CssClass="form-control" MaxLength="50" TextMode="SingleLine"></asp:TextBox>
+                    <asp:TextBox runat="server" ID="CRM" CssClass="form-control" MaxLength="50" TextMode="SingleLine" Text='<%# Bind("crm") %>'></asp:TextBox>
                 </asp:Panel>
             </asp:Panel>
             <asp:Panel CssClass="form-group" runat="server">
                 <label for="ATENDTURNO" class="col-sm-3 control-label">Atendimento por turno:</label>
                 <asp:Panel runat="server" CssClass="col-sm-2">
-                    <asp:DropDownList ID="ATENDTURNO" CssClass="form-control" runat="server">
+                    <asp:DropDownList ID="ATENDTURNO" CssClass="form-control" runat="server" Text='<%# Bind("turno") %>'>
                         <asp:ListItem>Selecione</asp:ListItem>
                         <asp:ListItem>1</asp:ListItem>
                         <asp:ListItem>2</asp:ListItem>
@@ -170,4 +170,9 @@
             </asp:Panel>
         </InsertItemTemplate>
     </asp:FormView>
+    <asp:ObjectDataSource runat="server" ID="ObjectDataSourceCadMedico" DataObjectTypeName="ClinicaUnit.Models.Medico" InsertMethod="Insert" SelectMethod="ObterMedico" TypeName="ClinicaUnit.Models.MedicoDAO" UpdateMethod="UPDATE">
+        <SelectParameters>
+            <asp:QueryStringParameter QueryStringField="ID" Name="id_medico" Type="Int32"></asp:QueryStringParameter>
+        </SelectParameters>
+    </asp:ObjectDataSource>
 </asp:Content>

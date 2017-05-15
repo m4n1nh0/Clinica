@@ -22,11 +22,11 @@ namespace ClinicaUnit.Models
         private String Nome;
         private String CPF;
         private String Telefone;
-        private Char CRM;
+        private String CRM;
         private String Endereco;
         private String Cidade;
-        private Char UF;
-        private Char Turno;
+        private String UF;
+        private String Turno;
 
         public int id
         {
@@ -106,7 +106,7 @@ namespace ClinicaUnit.Models
             }
         }
 
-        public char uf
+        public String uf
         {
             get
             {
@@ -119,7 +119,7 @@ namespace ClinicaUnit.Models
             }
         }
 
-        public char crm
+        public String crm
         {
             get
             {
@@ -131,7 +131,7 @@ namespace ClinicaUnit.Models
                 CRM = value;
             }
         }
-        public char turno
+        public String turno
         {
             get
             {

@@ -20,7 +20,7 @@ namespace ClinicaUnit.Models
             try
             {
                 this.AbrirConexao();
-                cmd = new SqlCommand("SELECT * FROM [MEDICO] WHERE [Id] = @medico", con);
+                cmd = new SqlCommand("SELECT * FROM [MEDICO] WHERE [Id] = @medico", tran.Connection, tran);
                 cmd.Parameters.AddWithValue("@medico", id_medico);
                 Medico medico = null;
                 dr = cmd.ExecuteReader();
@@ -32,10 +32,10 @@ namespace ClinicaUnit.Models
                     medico.telefone = Convert.ToString(dr["Telefone"]);
                     medico.cidade = Convert.ToString(dr["Cidade"]);
                     medico.cpf = Convert.ToString(dr["CPF"]);
-                    medico.crm = Convert.ToChar(dr["CRM"]);
+                    medico.crm = Convert.ToString(dr["CRM"]);
                     medico.endereco = Convert.ToString(dr["Endereco"]);
-                    medico.turno = Convert.ToChar(dr["Turno"]);
-                    medico.uf = Convert.ToChar(dr["UF"]);
+                    medico.turno = Convert.ToString(dr["Turno"]);
+                    medico.uf = Convert.ToString(dr["UF"]);
                 }
                 return medico;
             }
@@ -55,11 +55,10 @@ namespace ClinicaUnit.Models
             {
                 this.AbrirConexao();
                 string query = @"SELECT * FROM [MEDICO]
-                                          WHERE (@nome is null or [Nome] = @nome
-                                                 @cidade is null or [CIDADE] = @cidade
-                                                 @endereco is null or [ENDERECO] = @endereco   
-                                                 @uf is null or [UF] = @uf
-                                                )";
+                                          WHERE (@nome is null or [Nome] = @nome) and
+                                                (@cidade is null or [CIDADE] = @cidade) and
+                                                (@endereco is null or [ENDERECO] = @endereco) and
+                                                (@uf is null or [UF] = @uf)";
                 cmd = new SqlCommand(query, tran.Connection, tran);
                 if (String.IsNullOrEmpty(nome))
                 {
@@ -104,10 +103,11 @@ namespace ClinicaUnit.Models
                     medico.telefone = Convert.ToString(dr["Telefone"]);
                     medico.cidade = Convert.ToString(dr["Cidade"]);
                     medico.cpf = Convert.ToString(dr["CPF"]);
-                    medico.crm = Convert.ToChar(dr["CRM"]);
+                    medico.crm = Convert.ToString(dr["CRM"]);
                     medico.endereco = Convert.ToString(dr["Endereco"]);
-                    medico.turno = Convert.ToChar(dr["Turno"]);
-                    medico.uf = Convert.ToChar(dr["UF"]);
+                    medico.turno = Convert.ToString(dr["Turno"]);
+                    medico.uf = Convert.ToString(dr["UF"]);
+                    List.Add(medico);
                 }
                 return List;
             }
@@ -125,8 +125,12 @@ namespace ClinicaUnit.Models
             try
             {
                 this.AbrirConexao();
-                cmd = new SqlCommand(@"INSERT INTO [MEDICO] 
-                                                    ([NOME],
+                Int32 _id = this.ObterCodigo();
+                medico.id = _id;
+                cmd = new SqlCommand(@"SET IDENTITY_INSERT [MEDICO] ON;
+                                       INSERT INTO [MEDICO] 
+                                                    ([ID],
+                                                     [NOME],
                                                      [TELEFONE],
                                                      [CIDADE],
                                                      [CPF],
@@ -134,14 +138,17 @@ namespace ClinicaUnit.Models
                                                      [ENDERECO],
                                                      [TURNO],
                                                      [UF]) 
-                                              VALUES (@nome,
+                                              VALUES (@id_,
+                                                      @nome,
                                                       @telefone,
                                                       @cidade,
                                                       @cpf,
                                                       @crm,
                                                       @endereco,
                                                       @turno,
-                                                      @uf)", tran.Connection, tran);
+                                                      @uf);
+                                       SET IDENTITY_INSERT [MEDICO] OFF;", tran.Connection, tran);
+                cmd.Parameters.AddWithValue("@id_", medico.id);
                 cmd.Parameters.AddWithValue("@nome", medico.nome);
                 cmd.Parameters.AddWithValue("@telefone", medico.telefone);
                 cmd.Parameters.AddWithValue("@cidade", medico.cidade);
@@ -220,6 +227,24 @@ namespace ClinicaUnit.Models
             finally
             {
                 this.FecharConexao();
+            }
+        }
+
+        public int ObterCodigo()
+        {
+            try
+            {
+                //this.AbrirConexao();
+                String query = "SELECT MAX([ID]) FROM [MEDICO]";
+                cmd = new SqlCommand(query, tran.Connection, tran);
+                int cod = 0;
+                cod = Convert.ToInt32(cmd.ExecuteScalar() == DBNull.Value ? 0 : cmd.ExecuteScalar());
+                cod++;
+                return cod;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Erro ao obter Codigo" + ex.Message);
             }
         }
         #endregion

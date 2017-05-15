@@ -124,6 +124,8 @@
     <Content Include="Views\Index.aspx" />
     <Content Include="Views\ListConvenio.aspx" />
     <Content Include="Views\ListExame.aspx" />
+    <Content Include="Views\ListMedico.aspx" />
+    <Content Include="Views\ListPaciente.aspx" />
     <Content Include="Views\MasterPage.Master" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -205,6 +207,20 @@
     </Compile>
     <Compile Include="Views\ListExame.aspx.designer.cs">
       <DependentUpon>ListExame.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Views\ListMedico.aspx.cs">
+      <DependentUpon>ListMedico.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Views\ListMedico.aspx.designer.cs">
+      <DependentUpon>ListMedico.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Views\ListPaciente.aspx.cs">
+      <DependentUpon>ListPaciente.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Views\ListPaciente.aspx.designer.cs">
+      <DependentUpon>ListPaciente.aspx</DependentUpon>
     </Compile>
     <Compile Include="Views\MasterPage.Master.cs">
       <DependentUpon>MasterPage.Master</DependentUpon>

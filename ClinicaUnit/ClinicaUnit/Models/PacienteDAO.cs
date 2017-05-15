@@ -20,7 +20,7 @@ namespace ClinicaUnit.Models
             try
             {
                 this.AbrirConexao();
-                cmd = new SqlCommand("SELECT * FROM [PACIENTE] WHERE [Id] = @paciente", con);
+                cmd = new SqlCommand("SELECT * FROM [PACIENTE] WHERE [Id] = @paciente", tran.Connection, tran);
                 cmd.Parameters.AddWithValue("@paciente", id_paciente);
                 Paciente paciente = null;
                 dr = cmd.ExecuteReader();
@@ -32,10 +32,10 @@ namespace ClinicaUnit.Models
                     paciente.telefone = Convert.ToString(dr["Telefone"]);
                     paciente.cidade = Convert.ToString(dr["Cidade"]);
                     paciente.cpf = Convert.ToString(dr["CPF"]);
-                    paciente.sexo = Convert.ToChar(dr["SEXO"]);
+                    paciente.sexo = Convert.ToString(dr["SEXO"]);
                     paciente.endereco = Convert.ToString(dr["Endereco"]);
                     paciente.plano = Convert.ToString(dr["Plano"]);
-                    paciente.uf = Convert.ToChar(dr["UF"]);
+                    paciente.uf = Convert.ToString(dr["UF"]);
                     paciente.dtnaci = Convert.ToDateTime(dr["DTNACI"]);
                 }
                 return paciente;
@@ -104,11 +104,12 @@ namespace ClinicaUnit.Models
                     paciente.telefone = Convert.ToString(dr["Telefone"]);
                     paciente.cidade = Convert.ToString(dr["Cidade"]);
                     paciente.cpf = Convert.ToString(dr["CPF"]);
-                    paciente.sexo = Convert.ToChar(dr["Sexo"]);
+                    paciente.sexo = Convert.ToString(dr["Sexo"]);
                     paciente.endereco = Convert.ToString(dr["Endereco"]);
                     paciente.plano = Convert.ToString(dr["Plano"]);
-                    paciente.uf = Convert.ToChar(dr["UF"]);
+                    paciente.uf = Convert.ToString(dr["UF"]);
                     paciente.dtnaci = Convert.ToDateTime(dr["DTNACI"]);
+                    List.Add(paciente);
                 }
                 return List;
             }
@@ -126,8 +127,12 @@ namespace ClinicaUnit.Models
             try
             {
                 this.AbrirConexao();
-                cmd = new SqlCommand(@"INSERT INTO [MEDICO] 
-                                                    ([NOME],
+                Int32 _id = this.ObterCodigo();
+                paciente.id = _id;
+                cmd = new SqlCommand(@"SET IDENTITY_INSERT [PACIENTE] ON;
+                                       INSERT INTO [PACIENTE] 
+                                                    ([ID],
+                                                     [NOME],
                                                      [TELEFONE],
                                                      [CIDADE],
                                                      [CPF],
@@ -136,7 +141,8 @@ namespace ClinicaUnit.Models
                                                      [PLANO],
                                                      [SEXO],
                                                      [DTNACI]) 
-                                              VALUES (@nome,
+                                              VALUES (@id,
+                                                      @nome,
                                                       @telefone,
                                                       @cidade,
                                                       @cpf,
@@ -144,16 +150,18 @@ namespace ClinicaUnit.Models
                                                       @uf,
                                                       @plano,
                                                       @sexo,
-                                                      @dtnaci)", tran.Connection, tran);
+                                                      @dtnaci);
+                                        SET IDENTITY_INSERT [PACIENTE] OFF;", tran.Connection, tran);
+                cmd.Parameters.AddWithValue("@id", paciente.id);
                 cmd.Parameters.AddWithValue("@nome", paciente.nome);
                 cmd.Parameters.AddWithValue("@telefone", paciente.telefone);
                 cmd.Parameters.AddWithValue("@cidade", paciente.cidade);
                 cmd.Parameters.AddWithValue("@cpf", paciente.cpf);
                 cmd.Parameters.AddWithValue("@endereco", paciente.endereco);
                 cmd.Parameters.AddWithValue("@uf", paciente.uf);
-                cmd.Parameters.AddWithValue("@plano", paciente.uf);
-                cmd.Parameters.AddWithValue("@sexo", paciente.uf);
-                cmd.Parameters.AddWithValue("@dtnaci", paciente.uf);
+                cmd.Parameters.AddWithValue("@plano", paciente.plano);
+                cmd.Parameters.AddWithValue("@sexo", paciente.sexo);
+                cmd.Parameters.AddWithValue("@dtnaci", paciente.dtnaci);
                 cmd.Transaction = tran;
                 cmd.ExecuteNonQuery();
                 tran.Commit();
@@ -224,6 +232,24 @@ namespace ClinicaUnit.Models
             finally
             {
                 this.FecharConexao();
+            }
+        }
+
+        public int ObterCodigo()
+        {
+            try
+            {
+                //this.AbrirConexao();
+                String query = "SELECT MAX([ID]) FROM [PACIENTE]";
+                cmd = new SqlCommand(query, tran.Connection, tran);
+                int cod = 0;
+                cod = Convert.ToInt32(cmd.ExecuteScalar() == DBNull.Value ? 0 : cmd.ExecuteScalar());
+                cod++;
+                return cod;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Erro ao obter Codigo" + ex.Message);
             }
         }
         #endregion

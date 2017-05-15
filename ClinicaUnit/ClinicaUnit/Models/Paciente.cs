@@ -24,9 +24,9 @@ namespace ClinicaUnit.Models
         private String Telefone;
         private String Endereco;
         private String Cidade;
-        private Char UF;
+        private String UF;
         private String Plano;
-        private Char Sexo;
+        private String Sexo;
         private DateTime Dtnaci;
 
         public int id
@@ -107,7 +107,7 @@ namespace ClinicaUnit.Models
             }
         }
 
-        public char uf
+        public string uf
         {
             get
             {
@@ -133,7 +133,7 @@ namespace ClinicaUnit.Models
             }
         }
 
-        public char sexo
+        public string sexo
         {
             get
             {

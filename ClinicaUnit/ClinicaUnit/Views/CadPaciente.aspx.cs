@@ -11,9 +11,24 @@ namespace ClinicaUnit.Views
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (Request.QueryString["id"] == null && !IsPostBack)
+            if (!IsPostBack)
             {
-                Cadastro.ChangeMode(FormViewMode.Insert);
+                if (Request.QueryString["id"] == null)
+                {
+                    Cadastro.ChangeMode(FormViewMode.Insert);
+                }
+            }
+            else
+            {
+                if (Request.QueryString["id"] == null)
+                {
+                    Response.AddHeader("REFRESH", "1;URL=ListPaciente.aspx");
+                }
+                else
+                {
+                    Response.AddHeader("REFRESH", "1;URL=ListPaciente.aspx");
+                }
+
             }
         }
     }

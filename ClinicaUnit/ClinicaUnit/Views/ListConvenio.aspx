@@ -3,7 +3,7 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
-    <h2>Listar de Convênio</h2>
+    <h2>Lista de Convênio</h2>
     <asp:Label runat="server" class="col-sm-1 control-label">NOME: </asp:Label>
     <asp:Panel runat="server" CssClass="col-sm-4">
         <asp:TextBox runat="server" CssClass="form-control" ID="tbxNOME"></asp:TextBox>
