@@ -10,24 +10,33 @@
 namespace ClinicaUnit.Views {
     
     
-    public partial class CadExame {
+    public partial class ListExame {
         
         /// <summary>
-        /// Cadastro control.
+        /// tbxNOME control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.FormView Cadastro;
+        protected global::System.Web.UI.WebControls.TextBox tbxNOME;
         
         /// <summary>
-        /// ObjectDataSourceCadExame control.
+        /// GridView1 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.ObjectDataSource ObjectDataSourceCadExame;
+        protected global::System.Web.UI.WebControls.GridView GridView1;
+        
+        /// <summary>
+        /// ObjectDataSourceListExame control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.ObjectDataSource ObjectDataSourceListExame;
     }
 }

@@ -77,10 +77,16 @@
             <asp:Panel CssClass="form-group" runat="server">
                 <label for="CONVENIO" class="col-sm-2 control-label">Convênio</label>
                     <asp:Panel runat="server" CssClass="col-sm-8">
-                    <asp:DropDownList ID="CONVENIO" CssClass="form-control" runat="server">
-
-                    </asp:DropDownList>                
-              </asp:Panel>  
+                        <asp:DropDownList ID="CONVENIO" CssClass="form-control" runat="server" SelectedValue='<%# Bind("id") %>' DataSourceID="ObjectDataSourceSelConvenio" DataTextField="nome" DataValueField="id">
+                            <asp:ListItem Value="-1">Selecionar</asp:ListItem>
+                        </asp:DropDownList>
+                        <asp:ObjectDataSource runat="server" ID="ObjectDataSourceSelConvenio" SelectMethod="ListarConveio" TypeName="ClinicaUnit.Models.ConvenioDAO">
+                            <SelectParameters>
+                                <asp:Parameter Name="nomeConv" Type="String"></asp:Parameter>
+                                <asp:Parameter Name="Sigla" Type="String"></asp:Parameter>
+                            </SelectParameters>
+                        </asp:ObjectDataSource>
+                    </asp:Panel>  
               </asp:Panel>
             <asp:Panel CssClass="form-group" runat="server">
                 <label for="MEDICO" class="col-sm-2 control-label">Médico</label>

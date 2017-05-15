@@ -20,7 +20,7 @@ namespace ClinicaUnit.Models
             try
             {
                 this.AbrirConexao();
-                cmd = new SqlCommand("SELECT * FROM [EXAME] WHERE [Id] = @exame", con);
+                cmd = new SqlCommand("SELECT * FROM [EXAME] WHERE [Id] = @exame", tran.Connection, tran);
                 cmd.Parameters.AddWithValue("@exame", id_exame);
                 Exame exame = null;
                 dr = cmd.ExecuteReader();
@@ -49,15 +49,15 @@ namespace ClinicaUnit.Models
             {
                 this.AbrirConexao();
                 string query = @"SELECT * FROM [EXAME]
-                                          WHERE (@nome is null or [Nome] = @nomeconv)";
+                                          WHERE (@nome is null or [Nome] = @nome)";
                 cmd = new SqlCommand(query, tran.Connection, tran);
                 if (String.IsNullOrEmpty(nome))
                 {
-                    cmd.Parameters.AddWithValue("@nomeconv", DBNull.Value);
+                    cmd.Parameters.AddWithValue("@nome", DBNull.Value);
                 }
                 else
                 {
-                    cmd.Parameters.AddWithValue("@nomeconv", nome);
+                    cmd.Parameters.AddWithValue("@nome", nome);
                 }
 
                 dr = cmd.ExecuteReader();
@@ -68,6 +68,7 @@ namespace ClinicaUnit.Models
                     exame.Id1 = Convert.ToInt32(dr["Id"]);
                     exame.Nome1 = Convert.ToString(dr["NOME"]);
                     exame.Obs1 = Convert.ToString(dr["OBS"]);
+                    List.Add(exame);
                 }
                 return List;
             }

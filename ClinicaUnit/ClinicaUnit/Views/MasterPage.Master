@@ -59,7 +59,7 @@
                             <li>
                                 <asp:HyperLink href="CadPaciente.aspx" runat="server" ID="HyperLink2">Paciente</asp:HyperLink></li>
                             <li>
-                                <asp:HyperLink href="CadExame.aspx" runat="server" ID="HyperLink3">Exame</asp:HyperLink></li>
+                                <asp:HyperLink href="ListExame.aspx" runat="server" ID="HyperLink3">Exame</asp:HyperLink></li>
                             <li>
                                 <asp:HyperLink href="ListConvenio.aspx" runat="server" ID="HyperLink4">Convênio</asp:HyperLink></li>
                         </ul>
