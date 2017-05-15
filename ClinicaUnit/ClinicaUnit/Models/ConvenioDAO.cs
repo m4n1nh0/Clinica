@@ -21,7 +21,7 @@ namespace ClinicaUnit.Models
             try
             {
                 this.AbrirConexao();
-                cmd = new SqlCommand("SELECT * FROM [CONVENIO] WHERE [Id] = @convenio", con);
+                cmd = new SqlCommand("SELECT * FROM [CONVENIO] WHERE [Id] = @convenio", tran.Connection, tran);
                 cmd.Parameters.AddWithValue("@convenio", id_convenio);
                 Convenio convenio = null;
                 dr = cmd.ExecuteReader();
@@ -30,8 +30,8 @@ namespace ClinicaUnit.Models
                     convenio = new Convenio();
                     convenio.id = Convert.ToInt32(dr["Id"]);
                     convenio.nome = Convert.ToString(dr["Nome"]);
-                    convenio.sigla = Convert.ToChar(dr["SIGLA"]);
-                    convenio.telefone = Convert.ToChar(dr["Telefone"]);
+                    convenio.sigla = Convert.ToString(dr["SIGLA"]);
+                    convenio.telefone = Convert.ToString(dr["Telefone"]);
                 }
                 return convenio;
             }
@@ -78,8 +78,9 @@ namespace ClinicaUnit.Models
                     Convenio convenio = new Convenio();
                     convenio.id = Convert.ToInt32(dr["Id"]);
                     convenio.nome = Convert.ToString(dr["NOME"]);
-                    convenio.sigla = Convert.ToChar(dr["SIGLA"]);
-                    convenio.telefone = Convert.ToChar(dr["Telefone"]);
+                    convenio.sigla = Convert.ToString(dr["SIGLA"]);
+                    convenio.telefone = Convert.ToString(dr["Telefone"]);
+                    List.Add(convenio);
                 }
                 return List;
             }
@@ -97,17 +98,12 @@ namespace ClinicaUnit.Models
             try
             {
                 this.AbrirConexao();
-                cmd = new SqlCommand(@"INSERT INTO [CONVENIO] 
-                                                    ([ID], 
-                                                     [NOME],
-                                                     [SIGLA],
-                                                     [TELEFONE],
-                                                                 ) 
-                                              VALUES (@id,
-                                                      @nome,
-                                                      @sigla,
-                                                      @telefone)", tran.Connection, tran);
-                cmd.Parameters.AddWithValue("@id", convenio.id);
+                Int32 _id = this.ObterCodigo();
+                convenio.id = _id;
+                cmd = new SqlCommand(@"SET IDENTITY_INSERT [CONVENIO] ON;
+                                       INSERT INTO [CONVENIO] ([ID],[NOME], [SIGLA], [TELEFONE]) VALUES (@id_convenio,@nome, @sigla, @telefone);
+                                       SET IDENTITY_INSERT [CONVENIO] OFF;", tran.Connection, tran);
+                cmd.Parameters.AddWithValue("@id_convenio", convenio.id);
                 cmd.Parameters.AddWithValue("@nome", convenio.nome);
                 cmd.Parameters.AddWithValue("@sigla", convenio.sigla);
                 cmd.Parameters.AddWithValue("@telefone", convenio.telefone);
@@ -159,7 +155,7 @@ namespace ClinicaUnit.Models
                                               SET   [Nome] = @nome,
                                                     [SIGLA] = @sigla,
                                                     [Telefone] = @telefone
-                                              WHERE [ID_CONVENIO] = @id_convenio", tran.Connection, tran);
+                                              WHERE [ID] = @id_convenio", tran.Connection, tran);
                 cmd.Parameters.AddWithValue("@id_convenio", convenio.id);
                 cmd.Parameters.AddWithValue("@nome", convenio.nome);
                 cmd.Parameters.AddWithValue("@sigla", convenio.sigla);
@@ -179,6 +175,23 @@ namespace ClinicaUnit.Models
             }
         }
         #endregion
+        public int ObterCodigo()
+        {
+            try
+            {
+                //this.AbrirConexao();
+                String query = "SELECT MAX([ID]) FROM [CONVENIO]";
+                cmd = new SqlCommand(query, tran.Connection, tran);
+                int cod = 0;
+                cod = Convert.ToInt32(cmd.ExecuteScalar() == DBNull.Value ? 0 : cmd.ExecuteScalar());
+                cod++;
+                return cod;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Erro ao obter Codigo" + ex.Message);
+            }
+        }
 
     }
 }

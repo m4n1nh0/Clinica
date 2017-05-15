@@ -11,7 +11,24 @@ namespace ClinicaUnit.Views
     {
         protected void Page_Load(object sender, EventArgs e)
         {
+            if (!IsPostBack)
+            {
+                if (Request.QueryString["id"] == null)
+                {
+                    Cadastro.ChangeMode(FormViewMode.Insert);
+                }
+            }
+            else
+            {
+                if (Request.QueryString["id"] == null)
+                {
+                    Response.AddHeader("REFRESH", "1;URL=ListConvenio.aspx");
+                }else
+                {
+                    Response.AddHeader("REFRESH", "1;URL=ListConvenio.aspx");
+                }
 
+            }
         }
     }
 }

@@ -85,13 +85,17 @@ namespace ClinicaUnit.Models
             try
             {
                 this.AbrirConexao();
-                cmd = new SqlCommand(@"INSERT INTO [EXAME] 
+                Int32 _id = this.ObterCodigo();
+                exame.Id1 = _id;
+                cmd = new SqlCommand(@"SET IDENTITY_INSERT [EXAME] ON;
+                                       INSERT INTO [EXAME] 
                                                     ([ID], 
                                                      [NOME],
                                                      [OBS]) 
                                               VALUES (@id,
                                                       @nome,
-                                                      @obs)", tran.Connection, tran);
+                                                      @obs);
+                                       SET IDENTITY_INSERT [EXAME] OFF;", tran.Connection, tran);
                 cmd.Parameters.AddWithValue("@id", exame.Id1);
                 cmd.Parameters.AddWithValue("@nome", exame.Nome1);
                 cmd.Parameters.AddWithValue("@obs", exame.Obs1);
@@ -161,5 +165,22 @@ namespace ClinicaUnit.Models
             }
         }
         #endregion
+        public int ObterCodigo()
+        {
+            try
+            {
+                //this.AbrirConexao();
+                String query = "SELECT MAX([ID]) FROM [EXAME]";
+                cmd = new SqlCommand(query, tran.Connection, tran);
+                int cod = 0;
+                cod = Convert.ToInt32(cmd.ExecuteScalar() == DBNull.Value ? 0 : cmd.ExecuteScalar());
+                cod++;
+                return cod;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Erro ao obter Codigo" + ex.Message);
+            }
+        }
     }
 }

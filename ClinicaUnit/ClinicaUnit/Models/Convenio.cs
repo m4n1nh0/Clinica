@@ -14,8 +14,8 @@ namespace ClinicaUnit.Models
     {
         private Int32 Id;
         private String Nome;
-        private Char Sigla;
-        private Char Telefone;
+        private String Sigla;
+        private String Telefone;
 
         public int id
         {
@@ -43,7 +43,7 @@ namespace ClinicaUnit.Models
             }
         }
 
-        public char sigla
+        public String sigla
         {
             get
             {
@@ -56,7 +56,7 @@ namespace ClinicaUnit.Models
             }
         }
 
-        public char telefone
+        public String telefone
         {
             get
             {

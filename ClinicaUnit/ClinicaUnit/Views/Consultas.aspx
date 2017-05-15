@@ -2,43 +2,127 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
-    <asp:FormView ID="Cadastro" DefaultMode="Insert" Width="100%" runat="server">
-        <InsertItemTemplate>
-            <h2 class="form-signin-heading">Cadastro de Consultas</h2>
+    <asp:FormView ID="Cadastro" DefaultMode="Edit" DataKeyNames="ID_p, ID_c, ID_m, DATACON" Width="100%" runat="server">
+        <EditItemTemplate>
+            <h2 class="form-signin-heading">Editar de Consultas</h2>
             <asp:Panel CssClass="form-group" runat="server">
                 <label for="PACIENTE" class="col-sm-2 control-label">Paciente</label>
-                <asp:Panel runat="server" CssClass="col-sm-6">
-                    <asp:Panel runat="server" CssClass="col-sm-4">
-                    <asp:DropDownList ID="ESTADO" CssClass="form-control" runat="server">
+                <asp:Panel runat="server" CssClass="col-sm-8">
+                    <asp:TextBox runat="server" CssClass="form-control" ID="PACIENTE" TextMode="SingleLine" ReadOnly="true"></asp:TextBox>
+              </asp:Panel>
+            </asp:Panel>
+            <asp:Panel CssClass="form-group" runat="server">
+                <label for="CONVENIO" class="col-sm-2 control-label">Convênio</label>
+                <asp:Panel runat="server" CssClass="col-sm-8">
+                    <asp:TextBox runat="server" CssClass="form-control" ID="CONVENIO" TextMode="SingleLine" ReadOnly="true"></asp:TextBox>
+                </asp:Panel>  
+              </asp:Panel>
+            <asp:Panel CssClass="form-group" runat="server">
+                <label for="MEDICO" class="col-sm-2 control-label">Médico</label>
+                <asp:Panel runat="server" CssClass="col-sm-8">
+                    <asp:TextBox runat="server" CssClass="form-control" ID="MEDICO" TextMode="SingleLine" ReadOnly="true"></asp:TextBox>
+              </asp:Panel>
+            </asp:Panel>
+            <asp:Panel CssClass="form-group" runat="server">
+                <label for="DATA" class="col-sm-2 control-label">Data</label>
+                <asp:Panel runat="server" CssClass="col-sm-2">
+                    <asp:TextBox runat="server" CssClass="form-control" ID="DATA" TextMode="Date" ReadOnly="true"></asp:TextBox>
+                </asp:Panel>
+                <label for="TURNO" class="col-sm-2 control-label">Turno</label>
+                <asp:Panel runat="server" CssClass="col-sm-2">
+                    <asp:DropDownList ID="TURNO" CssClass="form-control" runat="server">
+                        <asp:ListItem>Manhã</asp:ListItem>
+                        <asp:ListItem>Tarde</asp:ListItem>
+                        <asp:ListItem>Noite</asp:ListItem>
+                    </asp:DropDownList>                
+              </asp:Panel>
+            </asp:Panel>
+            <asp:Panel CssClass="form-group" runat="server">
+                <label class="col-sm-2 control-label">Situação</label>
+                <asp:Panel runat="server" CssClass="col-sm-2">
+                    <asp:RadioButton ID="AGEND" runat="server" Text="Agendada" CssClass="form-control" GroupName="SIT"/>
+                </asp:Panel> 
+                <asp:Panel runat="server" CssClass="col-sm-2">
+                    <asp:RadioButton ID="REALI" runat="server" Text="Realizada"  CssClass="form-control" GroupName="SIT" />
+                </asp:Panel> 
+                <asp:Panel runat="server" CssClass="col-sm-2">
+                    <asp:RadioButton ID="CANCE" runat="server" Text="Cancelada"  CssClass="form-control" GroupName="SIT" />
+                </asp:Panel> 
+                <asp:Panel runat="server" CssClass="col-sm-2">
+                    <asp:RadioButton ID="RET" runat="server" Text="Retorno"  CssClass="form-control" GroupName="SIT" />
+                </asp:Panel> 
+            </asp:Panel>
+            <asp:Panel CssClass="form-group" runat="server">
+                <label for="MEDI" class="col-sm-2 control-label">Medicamentos</label>
+                <asp:Panel runat="server" CssClass="col-sm-8">
+                    <asp:TextBox runat="server" CssClass="form-control" ID="MEDI" TextMode="MultiLine"></asp:TextBox>
+                </asp:Panel>
+            </asp:Panel>
+            <asp:Panel CssClass="form-group" runat="server">
+                <asp:Panel runat="server" CssClass="col-sm-12 text-center">
+                    <asp:Button runat="server" ID="BtnEditar" CssClass="btn btn-success" CommandName="Update" Text="Salvar"></asp:Button>
+                </asp:Panel>
+            </asp:Panel>
+        </EditItemTemplate>
+        <InsertItemTemplate>
+            <h2 class="form-signin-heading">Cadastrar de Consultas</h2>
+            <asp:Panel CssClass="form-group" runat="server">
+                <label for="PACIENTE" class="col-sm-2 control-label">Paciente</label>
+                <asp:Panel runat="server" CssClass="col-sm-8">
+                    <asp:DropDownList ID="PACIENTE" CssClass="form-control" runat="server">
+
+                    </asp:DropDownList>                
+              </asp:Panel>
+            </asp:Panel>
+            <asp:Panel CssClass="form-group" runat="server">
+                <label for="CONVENIO" class="col-sm-2 control-label">Convênio</label>
+                    <asp:Panel runat="server" CssClass="col-sm-8">
+                    <asp:DropDownList ID="CONVENIO" CssClass="form-control" runat="server">
 
                     </asp:DropDownList>                
               </asp:Panel>  
               </asp:Panel>
-            </asp:Panel>
             <asp:Panel CssClass="form-group" runat="server">
-                <label for="SERGE" class="col-sm-2 control-label">Convênio</label>
-                <asp:Panel runat="server" CssClass="col-sm-6">
-                    <asp:Panel runat="server" CssClass="col-sm-4">
-                    <asp:DropDownList ID="DropDownList1" CssClass="form-control" runat="server">
+                <label for="MEDICO" class="col-sm-2 control-label">Médico</label>
+                <asp:Panel runat="server" CssClass="col-sm-8">
+                    <asp:DropDownList ID="MEDICO" CssClass="form-control" runat="server">
 
                     </asp:DropDownList>                
-              </asp:Panel>  
               </asp:Panel>
             </asp:Panel>
             <asp:Panel CssClass="form-group" runat="server">
-                <label for="PACIENTE" class="col-sm-2 control-label">Médico</label>
-                <asp:Panel runat="server" CssClass="col-sm-6">
-                    <asp:Panel runat="server" CssClass="col-sm-4">
-                    <asp:DropDownList ID="DropDownList2" CssClass="form-control" runat="server">
-
+                <label for="DATA" class="col-sm-2 control-label">Data</label>
+                <asp:Panel runat="server" CssClass="col-sm-2">
+                    <asp:TextBox runat="server" CssClass="form-control" ID="DATA" TextMode="Date"></asp:TextBox>
+                </asp:Panel>
+                <label for="PACIENTE" class="col-sm-2 control-label">Turno</label>
+                <asp:Panel runat="server" CssClass="col-sm-2">
+                    <asp:DropDownList ID="TURNO" CssClass="form-control" runat="server">
+                        <asp:ListItem>Manhã</asp:ListItem>
+                        <asp:ListItem>Tarde</asp:ListItem>
+                        <asp:ListItem>Noite</asp:ListItem>
                     </asp:DropDownList>                
-              </asp:Panel>  
               </asp:Panel>
             </asp:Panel>
             <asp:Panel CssClass="form-group" runat="server">
-                <label for="OBS" class="col-sm-2 control-label">Observação</label>
-                <asp:Panel runat="server" CssClass="col-sm-6">
-                    <asp:TextBox TextMode="MultiLine" runat="server" ID="OBS" CssClass="form-control" MaxLength="300"></asp:TextBox>
+                <label class="col-sm-2 control-label">Situação</label>
+                <asp:Panel runat="server" CssClass="col-sm-2">
+                    <asp:RadioButton ID="AGEND" runat="server" Text="Agendada" CssClass="form-control" GroupName="SIT"/>
+                </asp:Panel> 
+                <asp:Panel runat="server" CssClass="col-sm-2">
+                    <asp:RadioButton ID="REALI" runat="server" Text="Realizada"  CssClass="form-control" GroupName="SIT" />
+                </asp:Panel> 
+                <asp:Panel runat="server" CssClass="col-sm-2">
+                    <asp:RadioButton ID="CANCE" runat="server" Text="Cancelada"  CssClass="form-control" GroupName="SIT" />
+                </asp:Panel> 
+                <asp:Panel runat="server" CssClass="col-sm-2">
+                    <asp:RadioButton ID="RET" runat="server" Text="Retorno"  CssClass="form-control" GroupName="SIT" />
+                </asp:Panel> 
+            </asp:Panel>
+            <asp:Panel CssClass="form-group" runat="server">
+                <label for="MEDI" class="col-sm-2 control-label">Medicamentos</label>
+                <asp:Panel runat="server" CssClass="col-sm-8">
+                    <asp:TextBox runat="server" CssClass="form-control" ID="MEDI" TextMode="MultiLine"></asp:TextBox>
                 </asp:Panel>
             </asp:Panel>
             <asp:Panel CssClass="form-group" runat="server">

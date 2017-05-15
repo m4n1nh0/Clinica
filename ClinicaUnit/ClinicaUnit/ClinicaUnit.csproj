@@ -122,6 +122,7 @@
     <Content Include="Views\Consultas.aspx" />
     <Content Include="Views\Exames.aspx" />
     <Content Include="Views\Index.aspx" />
+    <Content Include="Views\ListConvenio.aspx" />
     <Content Include="Views\MasterPage.Master" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -189,6 +190,13 @@
     </Compile>
     <Compile Include="Views\Index.aspx.designer.cs">
       <DependentUpon>Index.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Views\ListConvenio.aspx.cs">
+      <DependentUpon>ListConvenio.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Views\ListConvenio.aspx.designer.cs">
+      <DependentUpon>ListConvenio.aspx</DependentUpon>
     </Compile>
     <Compile Include="Views\MasterPage.Master.cs">
       <DependentUpon>MasterPage.Master</DependentUpon>

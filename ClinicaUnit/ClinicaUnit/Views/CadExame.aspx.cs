@@ -11,7 +11,10 @@ namespace ClinicaUnit.Views
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-
+            if (Request.QueryString["id"] == null && !IsPostBack)
+            {
+                Cadastro.ChangeMode(FormViewMode.Insert);
+            }
         }
     }
 }

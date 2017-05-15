@@ -51,6 +51,19 @@
                         <asp:HyperLink href="Consultas.aspx" runat="server" ID="ITEM1">Consultas</asp:HyperLink></li>
                     <li>
                         <asp:HyperLink href="Exames.aspx" runat="server" ID="ITEM2">Requisição de Exame</asp:HyperLink></li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Relação<span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <asp:HyperLink href="ListConvenio.aspx" runat="server" ID="HyperLink1">Médico</asp:HyperLink></li>
+                            <li>
+                                <asp:HyperLink href="CadPaciente.aspx" runat="server" ID="HyperLink2">Paciente</asp:HyperLink></li>
+                            <li>
+                                <asp:HyperLink href="CadExame.aspx" runat="server" ID="HyperLink3">Exame</asp:HyperLink></li>
+                            <li>
+                                <asp:HyperLink href="ListConvenio.aspx" runat="server" ID="HyperLink4">Convênio</asp:HyperLink></li>
+                        </ul>
+                    </li>
                 </ul>
             </div>
             <!--/.nav-collapse -->

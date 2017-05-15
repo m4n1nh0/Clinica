@@ -7,14 +7,10 @@ using System.Web.UI.WebControls;
 
 namespace ClinicaUnit.Views
 {
-    public partial class Exames : System.Web.UI.Page
+    public partial class ListConvenio : System.Web.UI.Page
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (Request.QueryString["id_p"] == null && !IsPostBack)
-            {
-                Cadastro.ChangeMode(FormViewMode.Insert);
-            }
 
         }
     }
