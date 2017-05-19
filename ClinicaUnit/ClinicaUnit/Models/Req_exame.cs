@@ -17,11 +17,14 @@ namespace ClinicaUnit.Models
         private Int32 Id_paciente;
         private Int32 Id_exame;
         private DateTime Dtexame;
+        private String DtexameUp;
         private Decimal Valor;
         private Char Tipo;
+        private Int32 Id_convenio;
         private String Convenio;
         private String NomePaci;
         private String NomeConv;
+        private String NomeExame;
 
         public int id_paciente
         {
@@ -123,6 +126,45 @@ namespace ClinicaUnit.Models
             set
             {
                 NomeConv = value;
+            }
+        }
+
+        public int id_convenio
+        {
+            get
+            {
+                return Id_convenio;
+            }
+
+            set
+            {
+                Id_convenio = value;
+            }
+        }
+
+        public string nomeExame
+        {
+            get
+            {
+                return NomeExame;
+            }
+
+            set
+            {
+                NomeExame = value;
+            }
+        }
+
+        public string dtexameup
+        {
+            get
+            {
+                return DtexameUp;
+            }
+
+            set
+            {
+                DtexameUp = value;
             }
         }
     }

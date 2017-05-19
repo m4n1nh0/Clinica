@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
+using System.Globalization;
 using System.Linq;
 using System.Web;
 
@@ -21,9 +22,11 @@ namespace ClinicaUnit.Models
             try
             {
                 this.AbrirConexao();
-                cmd = new SqlCommand("SELECT * FROM [EXAME] WHERE [id_paciente] = @paciente and [id_exame] = @exame and [DTCONSULTA] = @data", con);
+                cmd = new SqlCommand("SELECT * FROM [REQ_EXAME] WHERE [id_paciente] = @paciente and [id_exame] = @exame and [DTEXAME] = @data", tran.Connection, tran);
                 cmd.Parameters.AddWithValue("@paciente", id_paciente);
                 cmd.Parameters.AddWithValue("@exame", id_exame);
+                //dtconsulta = dtconsulta.ToString.Replace("/", "-");
+                //DateTime dt = DateTime.ParseExact(dtconsulta, "dd-MM-yyyy HH:mm:ss", null);
                 cmd.Parameters.AddWithValue("@data", dtconsulta);
                 Req_exame ReqExame = null;
                 dr = cmd.ExecuteReader();
@@ -33,6 +36,7 @@ namespace ClinicaUnit.Models
                     ReqExame.id_paciente = Convert.ToInt32(dr["id_paciente"]);
                     ReqExame.id_exame = Convert.ToInt32(dr["id_exame"]);
                     ReqExame.dtexame = Convert.ToDateTime(dr["DTEXAME"]);
+                    ReqExame.dtexameup = ReqExame.dtexame.ToString();
                     ReqExame.valor = Convert.ToDecimal(dr["VALOR"]);
                     ReqExame.tipo = Convert.ToChar(dr["TIPO"]);
                     ReqExame.convenio = Convert.ToString(dr["CONVENIO"]);
@@ -48,26 +52,35 @@ namespace ClinicaUnit.Models
                 this.FecharConexao();
             }
         }
-        public List<Req_exame> ListarReqExame(DateTime Data, String nomePaci, String nomeConv)
+        public List<Req_exame> ListarReqExame(String Data, String nomePaci, String nomeConv)
         {
             try
             {
                 this.AbrirConexao();
-                string query = @"SELECT [DTEXAME], [id_paciente],[paciente.nome], [id_convenio], [convenio.nome], [id_medico], [medico.nome], [TURNO], [MEDICAMENTOS] 
-                                          FROM [EXAME], [PACIENTE], [CONVENIO]
-                                          WHERE ([id_paciente] = [paciente.id]) and 
-                                                ([id_convenio] = [convenio.id]) and 
-                                                (@data is null or [DTCONSULTA]  = @data) and
-                                                (@nomepaci is null or [paciente.nome] = @nomepaci) and
-                                                (@nomeconv is null or [convenio.nome] = @nomeconv) ";
+                string query = @"SELECT * FROM REQ_EXAME R JOIN EXAME E ON R.id_exame = E.Id 
+						                                   JOIN PACIENTE P ON R.id_paciente = P.Id
+						                                   FULL OUTER JOIN CONVENIO C ON R.CONVENIO = C.Id
+                                          WHERE (R.id_paciente is not null) and
+                                                (R.DTEXAME >= @data) and
+                                                (@nomepaci is null or P.NOME = @nomepaci) and
+                                                (@nomeconv is null or E.NOME = @nomeconv);";
                 cmd = new SqlCommand(query, tran.Connection, tran);
-                if (Data == null)
+                //cmd.Parameters.AddWithValue("@data", dt);
+                //WHERE(@data is null or[R.DTEXAME] = @data) and
+                //                             (@nomepaci is null or[P.nome] = @nomepaci) and
+                //                            (@nomeconv is null or[E.nome] = @nomeconv)
+
+                if (String.IsNullOrEmpty(Data))
                 {
-                    cmd.Parameters.AddWithValue("@data", DBNull.Value);
+                    Data = "01-01-1800 00:00:00";
+                    DateTime dt = DateTime.ParseExact(Data, "dd-MM-yyyy HH:mm:ss", null);
+                    cmd.Parameters.AddWithValue("@data", dt);
                 }
                 else
                 {
-                    cmd.Parameters.AddWithValue("@data", Data);
+                    Data = Data.Replace("/", "-");
+                    DateTime dt = DateTime.ParseExact(Data, "dd-MM-yyyy HH:mm:ss", null);
+                    cmd.Parameters.AddWithValue("@data", dt);
                 }
 
                 if (String.IsNullOrEmpty(nomePaci))
@@ -93,12 +106,16 @@ namespace ClinicaUnit.Models
                 while (dr.Read())
                 {
                     Req_exame ReqExame = new Req_exame();
-                    ReqExame.id_paciente = Convert.ToInt32(dr["ID_PACIENTE"]);
-                    ReqExame.id_exame = Convert.ToInt32(dr["ID_EXAME"]);
-                    ReqExame.dtexame = Convert.ToDateTime(dr["DTEXAME"]);
-                    ReqExame.valor = Convert.ToInt32(dr["VALOR"]);
-                    ReqExame.convenio = Convert.ToString(dr["CONVENIO"]);
-                    ReqExame.tipo = Convert.ToChar(dr["TIPO"]);
+                    ReqExame.id_paciente = Convert.ToInt32((dr.GetValue(0)) == DBNull.Value ? 0 : (dr.GetValue(0)));
+                    ReqExame.nomePaci = Convert.ToString((dr.GetValue(10)));
+                    ReqExame.dtexame = Convert.ToDateTime((dr.GetValue(2)));
+                    ReqExame.id_exame = Convert.ToInt32((dr.GetValue(1)));
+                    ReqExame.nomeExame = Convert.ToString((dr.GetValue(7)));
+                    ReqExame.id_convenio = Convert.ToInt32((dr.GetValue(5)).ToString() == "-1" ? 0 : (dr.GetValue(5)));
+                    ReqExame.nomeConv = Convert.ToString((dr.GetValue(20)));
+                    ReqExame.tipo = Convert.ToChar((dr.GetValue(4)));
+                    ReqExame.valor = Convert.ToDecimal((dr.GetValue(3)) == DBNull.Value ? 0.00 : (dr.GetValue(3)));
+                    List.Add(ReqExame);                    
                 }
                 return List;
             }
@@ -122,8 +139,7 @@ namespace ClinicaUnit.Models
                                                      [DTEXAME],
                                                      [VALOR],
                                                      [TIPO],
-                                                     [CONVENIO],
-                                                                 ) 
+                                                     [CONVENIO]) 
                                               VALUES (@id_paciente,
                                                       @id_exame,
                                                       @dtexame,
@@ -157,8 +173,8 @@ namespace ClinicaUnit.Models
             {
                 this.AbrirConexao();
                 cmd = new SqlCommand(@"DELETE FROM [REQ_EXAME] 
-                                              WHERE [ID_PACIENTE] = @id_paciente,
-                                                    [ID_EXAME] = @id_exame,
+                                              WHERE [ID_PACIENTE] = @id_paciente and
+                                                    [ID_EXAME] = @id_exame and
                                                     [DTEXAME] = @dtexame", tran.Connection, tran);
                 cmd.Parameters.AddWithValue("@id_paciente", reqExame.id_paciente);
                 cmd.Parameters.AddWithValue("@id_exame", reqExame.id_exame);
@@ -193,6 +209,9 @@ namespace ClinicaUnit.Models
                                                     [DTEXAME] = @dtexame", tran.Connection, tran);
                 cmd.Parameters.AddWithValue("@id_paciente", reqExame.id_paciente);
                 cmd.Parameters.AddWithValue("@id_exame", reqExame.id_exame);
+                reqExame.dtexameup = reqExame.dtexameup.Replace("/", "-");
+                DateTime dt = DateTime.ParseExact(reqExame.dtexameup, "dd-MM-yyyy HH:mm:ss", null);
+                reqExame.dtexame = dt;
                 cmd.Parameters.AddWithValue("@dtexame", reqExame.dtexame);
                 cmd.Parameters.AddWithValue("@valor", reqExame.valor);
                 cmd.Parameters.AddWithValue("@tipo", reqExame.tipo);

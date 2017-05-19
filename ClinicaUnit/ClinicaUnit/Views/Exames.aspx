@@ -3,47 +3,69 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
-    <asp:FormView ID="Cadastro" DefaultMode="Edit" DataKeyNames="ID_p, ID_ex, DATAEX" Width="100%" runat="server">
+    <asp:FormView ID="Cadastro" DefaultMode="Edit" DataKeyNames="id_paciente,id_exame,dtexame" Width="100%" runat="server" DataSourceID="ObjectDataSource1CadReqExame">
         <EditItemTemplate>
-            <h2 class="form-signin-heading">Cadastar Requisição de Exames</h2>
+            <h2 class="form-signin-heading">Editar Requisição de Exames</h2>
             <asp:Panel CssClass="form-group" runat="server">
                 <label for="PACIENTE" class="col-sm-2 control-label">Paciente</label>
                 <asp:Panel runat="server" CssClass="col-sm-8">
-                    <asp:TextBox runat="server" CssClass="form-control" ID="PACIENTE" TextMode="SingleLine" ReadOnly="true"></asp:TextBox>
+                    <asp:DropDownList ID="PACIENTE" CssClass="form-control" Enabled="false" runat="server" SelectedValue='<%# Bind("Id_paciente") %>' DataSourceID="ObjectDataSourceSelectPaciente" DataTextField="nome" DataValueField="id">
+                        <asp:ListItem Value="-1">Selecionar</asp:ListItem>
+                    </asp:DropDownList>
+                    <asp:ObjectDataSource runat="server" ID="ObjectDataSourceSelectPaciente" SelectMethod="ListarPaciente" TypeName="ClinicaUnit.Models.PacienteDAO">
+                        <SelectParameters>
+                            <asp:Parameter Name="nome" Type="String"></asp:Parameter>
+                            <asp:Parameter Name="cidade" Type="String"></asp:Parameter>
+                            <asp:Parameter Name="endereco" Type="String"></asp:Parameter>
+                            <asp:Parameter Name="uf" Type="String"></asp:Parameter>
+                        </SelectParameters>
+                    </asp:ObjectDataSource>
                 </asp:Panel>
             </asp:Panel>
             <asp:Panel CssClass="form-group" runat="server">
-                <label for="MEDICO" class="col-sm-2 control-label">Médico</label>
+                <label for="EXAME" class="col-sm-2 control-label">Exame</label>
                 <asp:Panel runat="server" CssClass="col-sm-8">
-                    <asp:TextBox runat="server" CssClass="form-control" ID="MEDICO" TextMode="SingleLine" ReadOnly="true"></asp:TextBox>
-              </asp:Panel>
+                    <asp:DropDownList ID="EXAME" CssClass="form-control" runat="server" Enabled="false" SelectedValue='<%# Bind("Id_exame") %>' DataSourceID="ObjectDataSourceSelectExame" DataTextField="Nome1" DataValueField="Id1">
+                        <asp:ListItem Value="-1">Selecionar</asp:ListItem>
+                    </asp:DropDownList>
+                    <asp:ObjectDataSource runat="server" ID="ObjectDataSourceSelectExame" SelectMethod="ListarExame" TypeName="ClinicaUnit.Models.ExameDAO">
+                        <SelectParameters>
+                            <asp:Parameter Name="nome" Type="String"></asp:Parameter>
+                        </SelectParameters>
+                    </asp:ObjectDataSource>
+                </asp:Panel>
             </asp:Panel>
             <asp:Panel CssClass="form-group" runat="server">
                 <label for="DATA" class="col-sm-2 control-label">Data</label>
                 <asp:Panel runat="server" CssClass="col-sm-2">
-                    <asp:TextBox runat="server" CssClass="form-control" ID="DATA" TextMode="Date" ReadOnly="true"></asp:TextBox>
+                    <asp:TextBox runat="server" CssClass="form-control" ID="DATA" TextMode="DateTime" ReadOnly="true" Text='<%# Bind("dtexameup") %>'></asp:TextBox>
                 </asp:Panel>
-            </asp:Panel> 
+            </asp:Panel>
             <asp:Panel CssClass="form-group" runat="server">
                 <label class="col-sm-2 control-label">Observação</label>
-                <asp:Panel runat="server" CssClass="col-sm-2">
-                    <asp:RadioButton ID="PART" runat="server" Text="Particular" CssClass="form-control" GroupName="OBS" />
-                </asp:Panel>
-                <asp:Panel runat="server" CssClass="col-sm-2">
-                    <asp:RadioButton ID="CONV" runat="server" Text="Convênio" CssClass="form-control" GroupName="OBS" />
-                </asp:Panel>
+                <asp:RadioButtonList ID="SITUACAO" runat="server" SelectedValue='<%# Bind("tipo") %>' RepeatDirection="Horizontal" OnSelectedIndexChanged="SITUACAO_SelectedIndexChanged">
+                    <asp:ListItem Value="P" Text="Particular"></asp:ListItem>
+                    <asp:ListItem Value="C" Text="Convênio"></asp:ListItem>
+                </asp:RadioButtonList>
             </asp:Panel>
             <asp:Panel CssClass="form-group" runat="server">
                 <label for="VAL" class="col-sm-2 control-label">Valor</label>
                 <asp:Panel runat="server" CssClass="col-sm-2">
-                    <asp:TextBox runat="server" CssClass="form-control" ID="VAL" TextMode="Number"></asp:TextBox>
+                    <asp:TextBox runat="server" CssClass="form-control" ID="VAL" TextMode="SingleLine" Text='<%# Bind("valor") %>'></asp:TextBox>
                 </asp:Panel>
             </asp:Panel>
             <asp:Panel CssClass="form-group" runat="server">
                 <label for="CONVENIO" class="col-sm-2 control-label">Convênio</label>
                 <asp:Panel runat="server" CssClass="col-sm-8">
-                    <asp:DropDownList ID="CONVENIO" CssClass="form-control" runat="server">
+                    <asp:DropDownList ID="CONVENIO" SelectedValue='<%# Bind("convenio") %>' CssClass="form-control" runat="server" DataSourceID="ObjectDataSourceSelectConvenio" DataTextField="nome" DataValueField="id" AppendDataBoundItems="True">
+                        <asp:ListItem Value="-1">Selecionar</asp:ListItem>
                     </asp:DropDownList>
+                    <asp:ObjectDataSource runat="server" ID="ObjectDataSourceSelectConvenio" SelectMethod="ListarConveio" TypeName="ClinicaUnit.Models.ConvenioDAO">
+                        <SelectParameters>
+                            <asp:Parameter Name="nomeConv" Type="String"></asp:Parameter>
+                            <asp:Parameter Name="Sigla" Type="String"></asp:Parameter>
+                        </SelectParameters>
+                    </asp:ObjectDataSource>
                 </asp:Panel>
             </asp:Panel>
             <asp:Panel CssClass="form-group" runat="server">
@@ -86,29 +108,34 @@
             <asp:Panel CssClass="form-group" runat="server">
                 <label for="DATA" class="col-sm-2 control-label">Data</label>
                 <asp:Panel runat="server" CssClass="col-sm-2">
-                    <asp:TextBox runat="server" CssClass="form-control" ID="DATA" TextMode="Date"></asp:TextBox>
+                    <asp:TextBox runat="server" CssClass="form-control" ID="DATA" TextMode="Date" Text='<%# Bind("dtexame") %>'></asp:TextBox>
                 </asp:Panel>
-            </asp:Panel> 
+            </asp:Panel>
             <asp:Panel CssClass="form-group" runat="server">
                 <label class="col-sm-2 control-label">Observação</label>
-                <asp:Panel runat="server" CssClass="col-sm-2">
-                    <asp:RadioButton ID="PART" runat="server" Text="Particular" CssClass="form-control" GroupName="OBS" />
-                </asp:Panel>
-                <asp:Panel runat="server" CssClass="col-sm-2">
-                    <asp:RadioButton ID="CONV" runat="server" Text="Convênio" CssClass="form-control" GroupName="OBS" />
-                </asp:Panel>
+                <asp:RadioButtonList ID="SITUACAO" runat="server" SelectedValue='<%# Bind("tipo") %>' RepeatDirection="Horizontal">
+                    <asp:ListItem Value="P" Text="Particular"></asp:ListItem>
+                    <asp:ListItem Value="C" Text="Convênio"></asp:ListItem>
+                </asp:RadioButtonList>
             </asp:Panel>
             <asp:Panel CssClass="form-group" runat="server">
                 <label for="VAL" class="col-sm-2 control-label">Valor</label>
                 <asp:Panel runat="server" CssClass="col-sm-2">
-                    <asp:TextBox runat="server" CssClass="form-control" ID="VAL" TextMode="Number"></asp:TextBox>
+                    <asp:TextBox runat="server" CssClass="form-control" ID="VAL" TextMode="Number" Text='<%# Bind("valor") %>'></asp:TextBox>
                 </asp:Panel>
             </asp:Panel>
             <asp:Panel CssClass="form-group" runat="server">
                 <label for="CONVENIO" class="col-sm-2 control-label">Convênio</label>
                 <asp:Panel runat="server" CssClass="col-sm-8">
-                    <asp:DropDownList ID="CONVENIO" CssClass="form-control" runat="server">
+                    <asp:DropDownList ID="CONVENIO" SelectedValue='<%# Bind("convenio") %>' CssClass="form-control" runat="server" DataSourceID="ObjectDataSourceSelectConvenio" DataTextField="nome" DataValueField="id" AppendDataBoundItems="True">
+                        <asp:ListItem Value="-1">Selecionar</asp:ListItem>
                     </asp:DropDownList>
+                    <asp:ObjectDataSource runat="server" ID="ObjectDataSourceSelectConvenio" SelectMethod="ListarConveio" TypeName="ClinicaUnit.Models.ConvenioDAO">
+                        <SelectParameters>
+                            <asp:Parameter Name="nomeConv" Type="String"></asp:Parameter>
+                            <asp:Parameter Name="Sigla" Type="String"></asp:Parameter>
+                        </SelectParameters>
+                    </asp:ObjectDataSource>
                 </asp:Panel>
             </asp:Panel>
             <asp:Panel CssClass="form-group" runat="server">
@@ -118,4 +145,11 @@
             </asp:Panel>
         </InsertItemTemplate>
     </asp:FormView>
+    <asp:ObjectDataSource runat="server" ID="ObjectDataSource1CadReqExame" DataObjectTypeName="ClinicaUnit.Models.Req_exame" InsertMethod="Insert" SelectMethod="ObterReqExame" TypeName="ClinicaUnit.Models.ReqExameDAO" UpdateMethod="UPDATE">
+        <SelectParameters>
+            <asp:QueryStringParameter QueryStringField="id_paciente" Name="id_paciente" Type="Int32"></asp:QueryStringParameter>
+            <asp:QueryStringParameter QueryStringField="id_exame" Name="id_exame" Type="Int32"></asp:QueryStringParameter>
+            <asp:QueryStringParameter QueryStringField="dtexame" Name="dtconsulta" Type="DateTime"></asp:QueryStringParameter>
+        </SelectParameters>
+    </asp:ObjectDataSource>
 </asp:Content>
