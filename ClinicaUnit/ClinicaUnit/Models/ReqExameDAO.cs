@@ -25,8 +25,11 @@ namespace ClinicaUnit.Models
                 cmd = new SqlCommand("SELECT * FROM [REQ_EXAME] WHERE [id_paciente] = @paciente and [id_exame] = @exame and [DTEXAME] = @data", tran.Connection, tran);
                 cmd.Parameters.AddWithValue("@paciente", id_paciente);
                 cmd.Parameters.AddWithValue("@exame", id_exame);
-                //dtconsulta = dtconsulta.ToString.Replace("/", "-");
-                //DateTime dt = DateTime.ParseExact(dtconsulta, "dd-MM-yyyy HH:mm:ss", null);
+                DateTime dt = DateTime.ParseExact("01-01-0001 00:00:00", "dd-MM-yyyy HH:mm:ss", null);
+                if (dtconsulta == dt)
+                {
+                    dtconsulta = DateTime.ParseExact("01-01-1800 00:00:00", "dd-MM-yyyy HH:mm:ss", null);
+                }
                 cmd.Parameters.AddWithValue("@data", dtconsulta);
                 Req_exame ReqExame = null;
                 dr = cmd.ExecuteReader();
@@ -52,36 +55,61 @@ namespace ClinicaUnit.Models
                 this.FecharConexao();
             }
         }
-        public List<Req_exame> ListarReqExame(String Data, String nomePaci, String nomeConv)
+        public List<Req_exame> ListarReqExame(DateTime Data, String nomePaci, String nomeConv)
         {
             try
             {
                 this.AbrirConexao();
-                string query = @"SELECT * FROM REQ_EXAME R JOIN EXAME E ON R.id_exame = E.Id 
+                string query;
+                DateTime dt = DateTime.ParseExact("01-01-0001 00:00:00", "dd-MM-yyyy HH:mm:ss", null);
+                if (Data == dt)
+                {
+                    query = @"SELECT * FROM REQ_EXAME R JOIN EXAME E ON R.id_exame = E.Id 
 						                                   JOIN PACIENTE P ON R.id_paciente = P.Id
 						                                   FULL OUTER JOIN CONVENIO C ON R.CONVENIO = C.Id
                                           WHERE (R.id_paciente is not null) and
                                                 (R.DTEXAME >= @data) and
                                                 (@nomepaci is null or P.NOME = @nomepaci) and
-                                                (@nomeconv is null or E.NOME = @nomeconv);";
-                cmd = new SqlCommand(query, tran.Connection, tran);
-                //cmd.Parameters.AddWithValue("@data", dt);
-                //WHERE(@data is null or[R.DTEXAME] = @data) and
-                //                             (@nomepaci is null or[P.nome] = @nomepaci) and
-                //                            (@nomeconv is null or[E.nome] = @nomeconv)
-
-                if (String.IsNullOrEmpty(Data))
-                {
-                    Data = "01-01-1800 00:00:00";
-                    DateTime dt = DateTime.ParseExact(Data, "dd-MM-yyyy HH:mm:ss", null);
-                    cmd.Parameters.AddWithValue("@data", dt);
+                                                (@nomeconv is null or E.NOME = @nomeconv)
+                                          ORDER BY 3 desc;";
+                    cmd = new SqlCommand(query, tran.Connection, tran);
                 }
                 else
                 {
-                    Data = Data.Replace("/", "-");
-                    DateTime dt = DateTime.ParseExact(Data, "dd-MM-yyyy HH:mm:ss", null);
-                    cmd.Parameters.AddWithValue("@data", dt);
+                    query = @"SELECT * FROM REQ_EXAME R JOIN EXAME E ON R.id_exame = E.Id 
+						                                   JOIN PACIENTE P ON R.id_paciente = P.Id
+						                                   FULL OUTER JOIN CONVENIO C ON R.CONVENIO = C.Id
+                                          WHERE (R.id_paciente is not null) and
+                                                (R.DTEXAME = @data) and
+                                                (@nomepaci is null or P.NOME = @nomepaci) and
+                                                (@nomeconv is null or E.NOME = @nomeconv)
+                                          ORDER BY 3 desc;";
+                    cmd = new SqlCommand(query, tran.Connection, tran);
                 }
+
+                if (Data == dt)
+                {
+                    DateTime dtvalid = DateTime.ParseExact("01-01-1800 00:00:00", "dd-MM-yyyy HH:mm:ss", null);
+                    cmd.Parameters.AddWithValue("@data", dtvalid);
+                }
+                else
+                {
+                    cmd.Parameters.AddWithValue("@data", Data);
+                }
+
+                //if (String.IsNullOrEmpty(Data))
+                //{
+                //    Data = "01-01-1800 00:00:00";
+                //    DateTime dt = DateTime.ParseExact(Data, "dd-MM-yyyy HH:mm:ss", null);
+                //    cmd.Parameters.AddWithValue("@data", dt);
+                //}
+                //else
+                //{
+                //    Data = Data.Replace("/", "-");
+                //    Data = Data + " 00:00:00";
+                //    DateTime dt = DateTime.ParseExact(Data, "dd-MM-yyyy HH:mm:ss", null);
+                //    cmd.Parameters.AddWithValue("@data", dt);
+                //}
 
                 if (String.IsNullOrEmpty(nomePaci))
                 {

@@ -13,7 +13,7 @@
     </asp:Panel>
     <asp:Label runat="server" class="col-sm-2 control-label">Data:</asp:Label>
     <asp:Panel runat="server" CssClass="col-sm-2">
-        <asp:TextBox runat="server" CssClass="form-control" ID="tbxData"></asp:TextBox>
+        <asp:TextBox runat="server" CssClass="form-control" ID="tbxData" TextMode="Date"></asp:TextBox>
     </asp:Panel>
     <asp:Panel runat="server" CssClass="text-center col-sm-1">
         <asp:Button runat="server" CssClass="btn btn-default" Text="Filtrar" />
@@ -41,7 +41,7 @@
 
     <asp:ObjectDataSource runat="server" ID="ObjectDataSourceListReqExame" DataObjectTypeName="ClinicaUnit.Models.Req_exame" DeleteMethod="Delete" SelectMethod="ListarReqExame" TypeName="ClinicaUnit.Models.ReqExameDAO">
         <SelectParameters>
-            <asp:ControlParameter ControlID="tbxData" PropertyName="Text" Name="Data" Type="String"></asp:ControlParameter>
+            <asp:ControlParameter ControlID="tbxData" PropertyName="Text" Name="Data" Type="DateTime"></asp:ControlParameter>
             <asp:ControlParameter ControlID="tbxNOME" PropertyName="Text" Name="nomePaci" Type="String"></asp:ControlParameter>
             <asp:ControlParameter ControlID="tbxExame" PropertyName="Text" Name="nomeConv" Type="String"></asp:ControlParameter>
         </SelectParameters>

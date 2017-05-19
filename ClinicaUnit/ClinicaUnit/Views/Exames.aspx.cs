@@ -60,7 +60,7 @@ namespace ClinicaUnit.Views
                     //TextBox Data = (TextBox)Cadastro.FindControl("DATA");
                     convenio.Enabled = true;
                     valor.Enabled = false;
-                    valor.Text = "0,00";
+                    valor.Text = "0.00";
                     if (Cadastro.CurrentMode.Equals(FormViewMode.Edit)) {
                         valor.Text = valor.Text.Replace(",", ".");
                         //Data.Text = Data.Text.Replace("/", "-");
