@@ -38,7 +38,9 @@
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Cadastros <span class="caret"></span></a>
                         <ul class="dropdown-menu">
                             <li>
-                                <asp:HyperLink href="CadMedico.aspx" runat="server" ID="MEDICO">Médico</asp:HyperLink></li>
+                                <asp:HyperLink href="CadEspecialidade.aspx" runat="server" ID="ESPECI">Especialidade</asp:HyperLink></li>
+                            <li>
+                                <asp:HyperLink href="CadMedico.aspx" runat="server" ID="HyperLink6">Médico</asp:HyperLink></li>
                             <li>
                                 <asp:HyperLink href="CadPaciente.aspx" runat="server" ID="PACIENTE">Paciente</asp:HyperLink></li>
                             <li>
@@ -57,7 +59,9 @@
                             <li>
                                 <asp:HyperLink href="ListReqExames.aspx" runat="server" ID="HyperLink1">Requisições de Exames</asp:HyperLink></li>
                             <li>
-                                <asp:HyperLink href="ListMedico.aspx" runat="server" ID="HyperLink5">Médico</asp:HyperLink></li>
+                                <asp:HyperLink href="ListEspecialidade.aspx" runat="server" ID="HyperLink5">Especialidade</asp:HyperLink></li>
+                            <li>
+                                <asp:HyperLink href="ListMedico.aspx" runat="server" ID="HyperLink7">Médico</asp:HyperLink></li>
                             <li>
                                 <asp:HyperLink href="ListPaciente.aspx" runat="server" ID="HyperLink2">Paciente</asp:HyperLink></li>
                             <li>

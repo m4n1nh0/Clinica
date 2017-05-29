@@ -27,7 +27,8 @@ namespace ClinicaUnit.Models
         private String Cidade;
         private String UF;
         private String Turno;
-
+        private Int32 Id_especi;
+        private String NomeEspeci;
         public int id
         {
             get
@@ -141,6 +142,32 @@ namespace ClinicaUnit.Models
             set
             {
                 Turno = value;
+            }
+        }
+
+        public int id_especi
+        {
+            get
+            {
+                return Id_especi;
+            }
+
+            set
+            {
+                Id_especi = value;
+            }
+        }
+
+        public string nomeEspeci
+        {
+            get
+            {
+                return NomeEspeci;
+            }
+
+            set
+            {
+                NomeEspeci = value;
             }
         }
     }

@@ -13,6 +13,25 @@
                 </asp:Panel>
             </asp:Panel>
             <asp:Panel CssClass="form-group" runat="server">
+                <label for="CONVENIO" class="col-sm-2 control-label">Convênio</label>
+                    <asp:Panel runat="server" CssClass="col-sm-3">
+                        <asp:DropDownList ID="CONVENIO" CssClass="form-control" runat="server" SelectedValue='<%# Bind("Id_convenio") %>' DataSourceID="ObjectDataSourceSelConvenio" DataTextField="nome" DataValueField="id">
+                            <asp:ListItem Value="-1">Selecionar</asp:ListItem>
+                        </asp:DropDownList>
+                        <asp:ObjectDataSource runat="server" ID="ObjectDataSourceSelConvenio" SelectMethod="ListarConveio" TypeName="ClinicaUnit.Models.ConvenioDAO">
+                            <SelectParameters>
+                                <asp:Parameter Name="nomeConv" Type="String"></asp:Parameter>
+                                <asp:Parameter Name="Sigla" Type="String"></asp:Parameter>
+                            </SelectParameters>
+                        </asp:ObjectDataSource>
+                    </asp:Panel>  
+                    <asp:Panel runat="server" CssClass="col-sm-3">
+                      <asp:GridView ID="GridView1" runat="server" CssClass="table table-hover table-striped" AutoGenerateColumns="False" DataKeyNames="id_exame,id_conv" GridLines="None">
+
+                      </asp:GridView>
+                    </asp:Panel>
+            </asp:Panel>
+            <asp:Panel CssClass="form-group" runat="server">
                 <label for="OBS" class="col-sm-2 control-label">Observação</label>
                 <asp:Panel runat="server" CssClass="col-sm-8">
                     <asp:TextBox TextMode="MultiLine" runat="server" ID="OBS" CssClass="form-control" MaxLength="300" Text='<%# Bind("Obs1") %>'></asp:TextBox>

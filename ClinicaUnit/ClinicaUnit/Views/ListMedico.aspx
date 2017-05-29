@@ -35,6 +35,7 @@
             <asp:BoundField DataField="uf" HeaderText="UF" SortExpression="uf"></asp:BoundField>
             <asp:BoundField DataField="crm" HeaderText="CRM" SortExpression="crm"></asp:BoundField>
             <asp:BoundField DataField="turno" HeaderText="Turno" SortExpression="turno"></asp:BoundField>
+            <asp:BoundField DataField="nomeEspeci" HeaderText="Especialidade" SortExpression="nomeEspeci"></asp:BoundField>
             <asp:TemplateField HeaderText="Ações">
                 <ItemTemplate>
                     <asp:LinkButton ID="LinkButton1"  CssClass="btn btn-default" runat="server" PostBackUrl='<%# string.Format("~/Views/CadMedico.aspx?ID={0}", Eval("ID")) %>'>Editar</asp:LinkButton>

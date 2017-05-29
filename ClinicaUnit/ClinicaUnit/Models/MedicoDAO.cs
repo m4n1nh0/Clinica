@@ -36,6 +36,7 @@ namespace ClinicaUnit.Models
                     medico.endereco = Convert.ToString(dr["Endereco"]);
                     medico.turno = Convert.ToString(dr["Turno"]);
                     medico.uf = Convert.ToString(dr["UF"]);
+                    medico.id_especi = Convert.ToInt32(dr["Id_especi"]);
                 }
                 return medico;
             }
@@ -54,8 +55,9 @@ namespace ClinicaUnit.Models
             try
             {
                 this.AbrirConexao();
-                string query = @"SELECT * FROM [MEDICO]
-                                          WHERE (@nome is null or [Nome] = @nome) and
+                string query = @"SELECT * FROM [MEDICO],[ESPECIALIDADE]
+                                          WHERE ([Id_especi] = [ESPECIALIDADE].[id]) and
+                                                (@nome is null or [Nome] = @nome) and
                                                 (@cidade is null or [CIDADE] = @cidade) and
                                                 (@endereco is null or [ENDERECO] = @endereco) and
                                                 (@uf is null or [UF] = @uf)";
@@ -98,8 +100,8 @@ namespace ClinicaUnit.Models
                 while (dr.Read())
                 {
                     Medico medico = new Medico();
-                    medico.id = Convert.ToInt32(dr["Id"]);
-                    medico.nome = Convert.ToString(dr["Nome"]);
+                    medico.id = Convert.ToInt32((dr.GetValue(0)));
+                    medico.nome = Convert.ToString((dr.GetValue(1)));
                     medico.telefone = Convert.ToString(dr["Telefone"]);
                     medico.cidade = Convert.ToString(dr["Cidade"]);
                     medico.cpf = Convert.ToString(dr["CPF"]);
@@ -107,6 +109,7 @@ namespace ClinicaUnit.Models
                     medico.endereco = Convert.ToString(dr["Endereco"]);
                     medico.turno = Convert.ToString(dr["Turno"]);
                     medico.uf = Convert.ToString(dr["UF"]);
+                    medico.nomeEspeci = Convert.ToString((dr.GetValue(12)));
                     List.Add(medico);
                 }
                 return List;
@@ -137,7 +140,8 @@ namespace ClinicaUnit.Models
                                                      [CRM],
                                                      [ENDERECO],
                                                      [TURNO],
-                                                     [UF]) 
+                                                     [UF],
+                                                     [Id_especi]) 
                                               VALUES (@id_,
                                                       @nome,
                                                       @telefone,
@@ -146,7 +150,8 @@ namespace ClinicaUnit.Models
                                                       @crm,
                                                       @endereco,
                                                       @turno,
-                                                      @uf);
+                                                      @uf,
+                                                      @id_especi);
                                        SET IDENTITY_INSERT [MEDICO] OFF;", tran.Connection, tran);
                 cmd.Parameters.AddWithValue("@id_", medico.id);
                 cmd.Parameters.AddWithValue("@nome", medico.nome);
@@ -157,6 +162,7 @@ namespace ClinicaUnit.Models
                 cmd.Parameters.AddWithValue("@endereco", medico.endereco);
                 cmd.Parameters.AddWithValue("@turno", medico.turno);
                 cmd.Parameters.AddWithValue("@uf", medico.uf);
+                cmd.Parameters.AddWithValue("@id_especi", medico.id_especi);
                 cmd.Transaction = tran;
                 cmd.ExecuteNonQuery();
                 tran.Commit();
@@ -207,6 +213,7 @@ namespace ClinicaUnit.Models
                                                     [ENDERECO] = @endereco,
                                                     [TURNO] = @turno,
                                                     [UF] = @uf
+                                                    [id_esepeci] = @id_especi
                                               WHERE [ID] = @id_medico", tran.Connection, tran);
 
                 cmd.Parameters.AddWithValue("@id_medico", medico.id);
@@ -215,6 +222,7 @@ namespace ClinicaUnit.Models
                 cmd.Parameters.AddWithValue("@endereco", medico.endereco);
                 cmd.Parameters.AddWithValue("@turno", medico.turno);
                 cmd.Parameters.AddWithValue("@uf", medico.uf);
+                cmd.Parameters.AddWithValue("@id_especi", medico.id_especi);
                 cmd.Transaction = tran;
                 cmd.ExecuteNonQuery();
                 tran.Commit();

@@ -162,6 +162,18 @@
                         <asp:ListItem>4</asp:ListItem>
                     </asp:DropDownList>
                 </asp:Panel>
+                <label class="col-sm-3 control-label">Especialidade</label>
+                <asp:Panel runat="server" CssClass="col-sm-4">
+                    <asp:DropDownList ID="ESPECI" CssClass="form-control" SelectedValue='<%# Bind("id_especi") %>' runat="server" DataSourceID="ObjectDataSourceListEspeci" DataTextField="nome" DataValueField="id">
+                        <asp:ListItem Value="-1">Selecionar</asp:ListItem>
+                    </asp:DropDownList>
+                    <asp:ObjectDataSource runat="server" ID="ObjectDataSourceListEspeci" SelectMethod="ListarEspeci" TypeName="ClinicaUnit.Models.EspecialidadeDAO">
+                        <SelectParameters>
+                            <asp:Parameter Name="nome" Type="String"></asp:Parameter>
+                            <asp:Parameter Name="Descri" Type="String"></asp:Parameter>
+                        </SelectParameters>
+                    </asp:ObjectDataSource>
+                </asp:Panel>
             </asp:Panel>
             <asp:Panel CssClass="form-group" runat="server">
                 <asp:Panel runat="server" CssClass="col-sm-12 text-center">

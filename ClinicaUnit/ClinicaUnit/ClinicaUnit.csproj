@@ -116,6 +116,7 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Views\CadConvenio.aspx" />
+    <Content Include="Views\CadEspecialidade.aspx" />
     <Content Include="Views\CadExame.aspx" />
     <Content Include="Views\CadMedico.aspx" />
     <Content Include="Views\CadPaciente.aspx" />
@@ -123,6 +124,7 @@
     <Content Include="Views\Exames.aspx" />
     <Content Include="Views\Index.aspx" />
     <Content Include="Views\ListConvenio.aspx" />
+    <Content Include="Views\ListEspecialidade.aspx" />
     <Content Include="Views\ListExame.aspx" />
     <Content Include="Views\ListMedico.aspx" />
     <Content Include="Views\ListPaciente.aspx" />
@@ -146,12 +148,22 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Models\Especialidade.cs" />
+    <Compile Include="Models\EspecialidadeDAO.cs" />
+    <Compile Include="Models\ExameConvenioDAO.cs" />
     <Compile Include="Views\CadConvenio.aspx.cs">
       <DependentUpon>CadConvenio.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Views\CadConvenio.aspx.designer.cs">
       <DependentUpon>CadConvenio.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Views\CadEspecialidade.aspx.cs">
+      <DependentUpon>CadEspecialidade.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Views\CadEspecialidade.aspx.designer.cs">
+      <DependentUpon>CadEspecialidade.aspx</DependentUpon>
     </Compile>
     <Compile Include="Views\CadExame.aspx.cs">
       <DependentUpon>CadExame.aspx</DependentUpon>
@@ -181,6 +193,7 @@
     <Compile Include="Views\Consultas.aspx.designer.cs">
       <DependentUpon>Consultas.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Views\ExameConvenio.cs" />
     <Compile Include="Views\Exames.aspx.cs">
       <DependentUpon>Exames.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -201,6 +214,13 @@
     </Compile>
     <Compile Include="Views\ListConvenio.aspx.designer.cs">
       <DependentUpon>ListConvenio.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Views\ListEspecialidade.aspx.cs">
+      <DependentUpon>ListEspecialidade.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Views\ListEspecialidade.aspx.designer.cs">
+      <DependentUpon>ListEspecialidade.aspx</DependentUpon>
     </Compile>
     <Compile Include="Views\ListExame.aspx.cs">
       <DependentUpon>ListExame.aspx</DependentUpon>

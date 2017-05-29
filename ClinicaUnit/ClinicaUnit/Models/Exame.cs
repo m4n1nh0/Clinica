@@ -13,6 +13,9 @@ namespace ClinicaUnit.Models
         private Int32 Id;
         private String Nome;
         private String Obs;
+        private Int32 Id_convenio;
+        private String Nome_convenio;
+
 
         public int Id1
         {
@@ -50,6 +53,32 @@ namespace ClinicaUnit.Models
             set
             {
                 Obs = value;
+            }
+        }
+
+        public string nome_convenio
+        {
+            get
+            {
+                return Nome_convenio;
+            }
+
+            set
+            {
+                Nome_convenio = value;
+            }
+        }
+
+        public int id_convenio
+        {
+            get
+            {
+                return Id_convenio;
+            }
+
+            set
+            {
+                Id_convenio = value;
             }
         }
     }
