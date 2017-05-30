@@ -193,7 +193,7 @@
     <Compile Include="Views\Consultas.aspx.designer.cs">
       <DependentUpon>Consultas.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Views\ExameConvenio.cs" />
+    <Compile Include="Models\ExameConvenio.cs" />
     <Compile Include="Views\Exames.aspx.cs">
       <DependentUpon>Exames.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>

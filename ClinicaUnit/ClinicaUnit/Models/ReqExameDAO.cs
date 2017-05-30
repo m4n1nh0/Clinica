@@ -161,7 +161,9 @@ namespace ClinicaUnit.Models
             try
             {
                 this.AbrirConexao();
-                cmd = new SqlCommand(@"INSERT INTO [REQ_EXAME] 
+                if (!VerificaExameConv(reqExame.id_exame, reqExame.convenio))
+                {
+                    cmd = new SqlCommand(@"INSERT INTO [REQ_EXAME] 
                                                     ([ID_PACIENTE], 
                                                      [ID_EXAME],
                                                      [DTEXAME],
@@ -174,16 +176,16 @@ namespace ClinicaUnit.Models
                                                       @valor,
                                                       @tipo,
                                                       @convenio)", tran.Connection, tran);
-                cmd.Parameters.AddWithValue("@id_paciente", reqExame.id_paciente);
-                cmd.Parameters.AddWithValue("@id_exame", reqExame.id_exame);
-                cmd.Parameters.AddWithValue("@dtexame", reqExame.dtexame);
-                cmd.Parameters.AddWithValue("@valor", reqExame.valor);
-                cmd.Parameters.AddWithValue("@tipo", reqExame.tipo);
-                cmd.Parameters.AddWithValue("@convenio", reqExame.convenio);
-                cmd.Transaction = tran;
-                cmd.ExecuteNonQuery();
-                tran.Commit();
-
+                    cmd.Parameters.AddWithValue("@id_paciente", reqExame.id_paciente);
+                    cmd.Parameters.AddWithValue("@id_exame", reqExame.id_exame);
+                    cmd.Parameters.AddWithValue("@dtexame", reqExame.dtexame);
+                    cmd.Parameters.AddWithValue("@valor", reqExame.valor);
+                    cmd.Parameters.AddWithValue("@tipo", reqExame.tipo);
+                    cmd.Parameters.AddWithValue("@convenio", reqExame.convenio);
+                    cmd.Transaction = tran;
+                    cmd.ExecuteNonQuery();
+                    tran.Commit();
+                }
             }
             catch (Exception e)
             {
@@ -228,25 +230,27 @@ namespace ClinicaUnit.Models
             try
             {
                 this.AbrirConexao();
-                cmd = new SqlCommand(@"UPDATE [REQ_EXAME] 
-                                              SET   [VALOR] = @valor,
-                                                    [TIPO] = @tipo,
-                                                    [CONVENIO] = @convenio
-                                              WHERE [ID_PACIENTE] = @id_paciente and
-                                                    [ID_EXAME] = @id_exame and
-                                                    [DTEXAME] = @dtexame", tran.Connection, tran);
-                cmd.Parameters.AddWithValue("@id_paciente", reqExame.id_paciente);
-                cmd.Parameters.AddWithValue("@id_exame", reqExame.id_exame);
-                reqExame.dtexameup = reqExame.dtexameup.Replace("/", "-");
-                DateTime dt = DateTime.ParseExact(reqExame.dtexameup, "dd-MM-yyyy HH:mm:ss", null);
-                reqExame.dtexame = dt;
-                cmd.Parameters.AddWithValue("@dtexame", reqExame.dtexame);
-                cmd.Parameters.AddWithValue("@valor", reqExame.valor);
-                cmd.Parameters.AddWithValue("@tipo", reqExame.tipo);
-                cmd.Parameters.AddWithValue("@convenio", reqExame.convenio);
-                cmd.Transaction = tran;
-                cmd.ExecuteNonQuery();
-                tran.Commit();
+                if (!VerificaExameConv(reqExame.id_exame, reqExame.convenio)) { 
+                    cmd = new SqlCommand(@"UPDATE [REQ_EXAME] 
+                                                  SET   [VALOR] = @valor,
+                                                        [TIPO] = @tipo,
+                                                        [CONVENIO] = @convenio
+                                                  WHERE [ID_PACIENTE] = @id_paciente and
+                                                        [ID_EXAME] = @id_exame and
+                                                        [DTEXAME] = @dtexame", tran.Connection, tran);
+                    cmd.Parameters.AddWithValue("@id_paciente", reqExame.id_paciente);
+                    cmd.Parameters.AddWithValue("@id_exame", reqExame.id_exame);
+                    reqExame.dtexameup = reqExame.dtexameup.Replace("/", "-");
+                    DateTime dt = DateTime.ParseExact(reqExame.dtexameup, "dd-MM-yyyy HH:mm:ss", null);
+                    reqExame.dtexame = dt;
+                    cmd.Parameters.AddWithValue("@dtexame", reqExame.dtexame);
+                    cmd.Parameters.AddWithValue("@valor", reqExame.valor);
+                    cmd.Parameters.AddWithValue("@tipo", reqExame.tipo);
+                    cmd.Parameters.AddWithValue("@convenio", reqExame.convenio);
+                    cmd.Transaction = tran;
+                    cmd.ExecuteNonQuery();
+                    tran.Commit();
+                }
             }
             catch (Exception e)
             {
@@ -259,6 +263,31 @@ namespace ClinicaUnit.Models
             }
         }
         #endregion
+        public Boolean VerificaExameConv(Int32 id_exame, String id_convenio)
+        {
+            try
+            {
+                //this.AbrirConexao();
+                Boolean Teste = false;
+                String query = @"SELECT* FROM [EXAMECONV]
+                                          WHERE [Id_exame] = @id_exame and 
+                                                [Id_convenio] = @id_convenio";
+                cmd = new SqlCommand(query, tran.Connection, tran);
+                cmd.Parameters.AddWithValue("@id_exame", id_exame);
+                cmd.Parameters.AddWithValue("@id_convenio", id_convenio);
+                dr = cmd.ExecuteReader();
+                if (dr.HasRows)
+                {
+                    Teste = true;
+                }
+                return Teste;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Erro ao obter Codigo" + ex.Message);
+            }
+        }
+
 
     }
 }

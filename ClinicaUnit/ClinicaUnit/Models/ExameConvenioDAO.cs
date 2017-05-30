@@ -8,53 +8,27 @@ namespace ClinicaUnit.Models
 {
     public class ExameConvenioDAO : DBConect
     {
-        public List<Medico> ListarMedico(String nome, String cidade, String endereco, String uf)
+        public List<ExameConvenio> ListarMedico()
         {
             try
             {
                 this.AbrirConexao();
+                Int32 id_exame = 0;
                 string query = @"SELECT * FROM [EXAMECONV],[CONVENIO]
                                           WHERE (Id_conveino = [CONVENIO].[id]) and
-                                                (@nome is null or [Nome] = @nome) and
-                                                (@cidade is null or [CIDADE] = @cidade) and
-                                                (@endereco is null or [ENDERECO] = @endereco) and
-                                                (@uf is null or [UF] = @uf)";
+                                                (@exame is null or [id_exame] = @exame)";
                 cmd = new SqlCommand(query, tran.Connection, tran);
-                if (String.IsNullOrEmpty(nome))
+                if (id_exame == 0)
                 {
-                    cmd.Parameters.AddWithValue("@nome", DBNull.Value);
+                    cmd.Parameters.AddWithValue("@exame", 0);
                 }
                 else
                 {
-                    cmd.Parameters.AddWithValue("@nome", nome);
-                }
-                if (String.IsNullOrEmpty(cidade))
-                {
-                    cmd.Parameters.AddWithValue("@cidade", DBNull.Value);
-                }
-                else
-                {
-                    cmd.Parameters.AddWithValue("@cidade", cidade);
-                }
-                if (String.IsNullOrEmpty(endereco))
-                {
-                    cmd.Parameters.AddWithValue("@endereco", DBNull.Value);
-                }
-                else
-                {
-                    cmd.Parameters.AddWithValue("@endereco", endereco);
-                }
-                if (String.IsNullOrEmpty(uf))
-                {
-                    cmd.Parameters.AddWithValue("@uf", DBNull.Value);
-                }
-                else
-                {
-                    cmd.Parameters.AddWithValue("@uf", uf);
+                    cmd.Parameters.AddWithValue("@exame", id_exame);
                 }
 
                 dr = cmd.ExecuteReader();
-                List<Medico> List = new List<Medico>();
+                List<ExameConvenio> List = new List<ExameConvenio>();
                 while (dr.Read())
                 {
                     Medico medico = new Medico();

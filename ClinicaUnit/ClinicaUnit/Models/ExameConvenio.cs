@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
-namespace ClinicaUnit.Views
+namespace ClinicaUnit.Models
 {
     public class ExameConvenio
     {
