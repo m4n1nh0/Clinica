@@ -161,7 +161,7 @@ namespace ClinicaUnit.Models
             try
             {
                 this.AbrirConexao();
-                if (!VerificaExameConv(reqExame.id_exame, reqExame.convenio))
+                if (VerificaExameConv(reqExame.id_exame, reqExame.convenio))
                 {
                     cmd = new SqlCommand(@"INSERT INTO [REQ_EXAME] 
                                                     ([ID_PACIENTE], 
@@ -230,7 +230,7 @@ namespace ClinicaUnit.Models
             try
             {
                 this.AbrirConexao();
-                if (!VerificaExameConv(reqExame.id_exame, reqExame.convenio)) { 
+                if (VerificaExameConv(reqExame.id_exame, reqExame.convenio)) { 
                     cmd = new SqlCommand(@"UPDATE [REQ_EXAME] 
                                                   SET   [VALOR] = @valor,
                                                         [TIPO] = @tipo,

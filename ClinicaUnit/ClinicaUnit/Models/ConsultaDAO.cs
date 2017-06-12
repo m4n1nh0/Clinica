@@ -177,7 +177,7 @@ namespace ClinicaUnit.Models
             {
                 this.AbrirConexao();
                 cmd = new SqlCommand(@"DELETE FROM [CONSULTA] 
-                                              WHERE [ID_PACIENTE] = @id_paciente
+                                              WHERE [ID_PACIENTE] = @id_paciente 
                                                     [ID_CONVENIO] = @id_convenio
                                                     [ID_MEDICO] = @id_medico
                                                     [DTCONSULTA] = @dtconsulta", tran.Connection, tran);

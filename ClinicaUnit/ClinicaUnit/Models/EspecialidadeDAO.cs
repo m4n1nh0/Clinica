@@ -77,7 +77,7 @@ namespace ClinicaUnit.Models
                     Especialidade especi = new Especialidade();
                     especi.id = Convert.ToInt32(dr["Id"]);
                     especi.nome = Convert.ToString(dr["NOME"]);
-                    especi.descri = Convert.ToString(dr["SIGLA"]);
+                    especi.descri = Convert.ToString(dr["DESCRICAO"]);
                     List.Add(especi);
                 }
                 return List;

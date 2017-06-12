@@ -31,18 +31,18 @@ namespace ClinicaUnit.Models
                 List<ExameConvenio> List = new List<ExameConvenio>();
                 while (dr.Read())
                 {
-                    Medico medico = new Medico();
-                    medico.id = Convert.ToInt32((dr.GetValue(0)));
-                    medico.nome = Convert.ToString((dr.GetValue(1)));
-                    medico.telefone = Convert.ToString(dr["Telefone"]);
-                    medico.cidade = Convert.ToString(dr["Cidade"]);
-                    medico.cpf = Convert.ToString(dr["CPF"]);
-                    medico.crm = Convert.ToString(dr["CRM"]);
-                    medico.endereco = Convert.ToString(dr["Endereco"]);
-                    medico.turno = Convert.ToString(dr["Turno"]);
-                    medico.uf = Convert.ToString(dr["UF"]);
-                    medico.nomeEspeci = Convert.ToString((dr.GetValue(12)));
-                    List.Add(medico);
+                    //Medico medico = new Medico();
+                    //medico.id = Convert.ToInt32((dr.GetValue(0)));
+                    //medico.nome = Convert.ToString((dr.GetValue(1)));
+                    //medico.telefone = Convert.ToString(dr["Telefone"]);
+                    //medico.cidade = Convert.ToString(dr["Cidade"]);
+                    //medico.cpf = Convert.ToString(dr["CPF"]);
+                    //medico.crm = Convert.ToString(dr["CRM"]);
+                    //medico.endereco = Convert.ToString(dr["Endereco"]);
+                    //medico.turno = Convert.ToString(dr["Turno"]);
+                    //medico.uf = Convert.ToString(dr["UF"]);
+                    //medico.nomeEspeci = Convert.ToString((dr.GetValue(12)));
+                    //List.Add(medico);
                 }
                 return List;
             }

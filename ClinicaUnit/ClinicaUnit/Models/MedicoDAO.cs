@@ -57,7 +57,7 @@ namespace ClinicaUnit.Models
                 this.AbrirConexao();
                 string query = @"SELECT * FROM [MEDICO],[ESPECIALIDADE]
                                           WHERE ([Id_especi] = [ESPECIALIDADE].[id]) and
-                                                (@nome is null or [Nome] = @nome) and
+                                                (@nome is null or [MEDICO].[Nome] = @nome) and
                                                 (@cidade is null or [CIDADE] = @cidade) and
                                                 (@endereco is null or [ENDERECO] = @endereco) and
                                                 (@uf is null or [UF] = @uf)";
